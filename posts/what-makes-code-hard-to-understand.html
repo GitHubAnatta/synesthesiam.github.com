@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="title" content="What Makes Code Hard to Understand? | synesthesiam"><meta name="description" content=""><meta name="author" content="Michael Hansen"><title>What Makes Code Hard to Understand? | synesthesiam</title><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><!-- Le styles --><link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/slides.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script src="../assets/js/slides.min.jquery.js" type="text/javascript"></script><!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
+<div class="container-fluid" id="container">
+    <div class="row-fluid" id="titlerow">
+    <div class="span12" id="titlecolumn">
+    <!-- Banner-like substance !-->
+        <div id="titlelogo">
+            <a href="../" title="synesthesiam">
+                <img src="../assets/img/mike_head.png" alt="logo"></a>
+        </div>
+        <div id="titlebox">
+            <h1 id="blog-title">
+                <a href="../" title="synesthesiam">synesthesiam<br><small>Michael Hansen</small>
+                </a>
+            </h1>
+            
+            
+        </div>
+        <hr style="clear: both;" class="light"><!-- End of banner-like substance !--><div class="row-fluid" id="contentrow">
+        <div class="span10" id="contentcolumn">
+            <!--Body content-->
+            
+    <div class="postbox">
+    
+    <h1>What Makes Code Hard to Understand?</h1>
+
+    <small>
+        Posted: 2013-04-18
+        
+
+    </small>
+    <br><br><div><p>What factors impact the comprehensibility of code? Psychology of programming
+research suggests that expectation-congruent programs should take less time to
+understand and be less prone to errors.  In this blog post, I'll describe an
+experiment I did with my advisors <a href="http://osl.iu.edu/~lums/">Andrew Lumsdaine</a>
+(Computer Science) and <a href="http://cognitrn.psych.indiana.edu/rgoldsto/">Rob
+Goldstone</a> (Cognitive Science) at
+Indiana University.</p>
+<p>We asked 162 programmers to predict the output of <a href="../pages/eyecode-programs.html">10 small Python
+programs</a>.  Each program had 2 or 3 different
+versions, and we used subtle differences between program versions to
+demonstrate that seemingly insignificant notational changes can have big
+effects on correctness and response times. Our results show that experience
+increases performance in most cases, but may hurt performance significantly
+when underlying assumptions about related code statements are violated.</p>
+<!-- TEASER_END -->
+
+<h2 id="the-programmers">The Programmers</h2>
+<p>We had 162 programmers (129 males, 30 females, 3 unreported) participate from
+Amazon's Mechanical Turk (130 people), the local Bloomington, IN area (29
+people), and via e-mail solicitations (3 people). All participants needed to
+have some programming experiments, and the Mechanical Turkers were required to
+pass a simple Python quiz before taking the experiment.</p>
+<p>Here's a breakdown of the participant demographics:
+<img alt="Demographics" src="../assets/img/plot-demographics.png"></p>
+<p>We paid the local participants $10 each because they also had to come in to the
+lab and do the experiment in from of an eye-tracker (see my <a href="modeling-how-programmers-read-code.html">previous
+post</a> for a video). The folks from
+Mechanical Turk got $0.75, which is a lot more than the penny I see most people
+offering for surveys!</p>
+<h2 id="the-experiment">The Experiment</h2>
+<p>The experiment consisted of a pre-test survey, ten trials (one program each),
+and a post-test survey. The pre-test survey gathered information about the
+participant's age, gender, education, and experience. Participants were then
+asked to predict the printed output of ten short Python programs, one version
+randomly chosen from each of ten program types.</p>
+<p>Here's a shot of the main screen that participants used to drill down into each
+trial:</p>
+<p><img alt="Main Screen" src="../assets/img/eyecode_home.png"></p>
+<p>An individual trial consisted of the program's code (unhighlighted) and a text
+box where the participant could write what they thought the program would
+output.</p>
+<p><img alt="Main Screen" src="../assets/img/eyecode_trial.png"></p>
+<p>The presentation order and names of the programs were randomized, and all
+answers were final (i.e., no going back).  Although every program produced
+error-free output, participants were not informed of this fact beforehand. The
+post-test survey gauged a participant's confidence in their answers and the
+perceived difficulty of the task.</p>
+<h2 id="results">Results</h2>
+<p>We collected a total of 1,602 trials from the 162 participants starting
+November 20, 2012 and ending January 19, 2013. Trials were graded
+semi-automatically using a custom grading script (<a href="%5Bhttps://github.com/synesthesiam/eyecode-tools">available
+here</a>). Grades were assigned like this:</p>
+<ul><li>Perfect (10 points) - response exactly matched the program's output (about
+  63% of trials)</li>
+<li>Correct (7-9 points) - response had the right numbers or letters, but
+  incorrect formatting -- e.g., wrong whitespace, commas, brackets.</li>
+<li>Common error (2-4 points) - response was incorrect, but given by at least 3
+  other participants</li>
+</ul><p>All other responses were graded manually. Any trial that was restarted was
+discarded (i.e., the participant reloaded the web page or fiddled with the URL
+to try and change their answer).</p>
+<p>We had a total of 25 Python programs in 10 different categories. These programs
+were designed to be understandable by a wide audience, and therefore did not
+touch on Python features outside of a first or second introductory programming
+course. The programs ranged in size from 3 to 24 lines of code (LOC).
+Additional metrics, like <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic
+complexity</a> and <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures">Halstead
+volume</a>, were
+computed with <a href="http://sourceforge.net/projects/pymetrics/">PyMetrics</a>.</p>
+<h3 id="between-2-versions">between (2 versions)</h3>
+<h3 id="counting-2-versions">counting (2 versions)</h3>
+<h3 id="funcall-3-versions">funcall (3 versions)</h3>
+<h3 id="initvar-3-versions">initvar (3 versions)</h3>
+<h3 id="order-2-versions">order (2 versions)</h3>
+<h3 id="overload-3-versions">overload (3 versions)</h3>
+<h3 id="partition-3-versions">partition (3 versions)</h3>
+<h3 id="rectangle-3-versions">rectangle (3 versions)</h3>
+<h3 id="scope-2-versions">scope (2 versions)</h3>
+<h3 id="whitespace-2-versions">whitespace (2 versions)</h3></div>
+    
+    <ul class="pager"><li class="previous">
+            <a href="an-introduction-to-pandas.html">← Previous post</a>
+        </li>
+    </ul></div>
+
+            <!--End of body content-->
+            <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        </div>
+        <div class="span2" id="sidebar">
+            <!--Sidebar content-->
+            <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
+            <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
+            <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
+            <li class="divider"> </li>
+            <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>
+            <li><a href="../archive.html"><i class="icon-briefcase"></i> Archive</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://github.com/synesthesiam">My Github</a></li>
+            <li><a href="https://github.com/synesthesiam/artwork">Artwork</a></li>
+
+            </ul><div style="padding-left: 15px;">
+                
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/ar/">
+<img alt="Creative Commons License BY-NC-SA" style="border-width:0; margin-bottom:12px;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>
+            </div>
+            <!--End of sidebar content-->
+        </div>
+    
+    
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></div></div></div></div></body></html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="title" content="eyeCode Programs | synesthesiam"><meta name="description" content=""><meta name="author" content="Michael Hansen"><title>eyeCode Programs | synesthesiam</title><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><!-- Le styles --><link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/slides.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script src="../assets/js/slides.min.jquery.js" type="text/javascript"></script><!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
+<div class="container-fluid" id="container">
+    <div class="row-fluid" id="titlerow">
+    <div class="span12" id="titlecolumn">
+    <!-- Banner-like substance !-->
+        <div id="titlelogo">
+            <a href="../" title="synesthesiam">
+                <img src="../assets/img/mike_head.png" alt="logo"></a>
+        </div>
+        <div id="titlebox">
+            <h1 id="blog-title">
+                <a href="../" title="synesthesiam">synesthesiam<br><small>Michael Hansen</small>
+                </a>
+            </h1>
+            
+            
+        </div>
+        <hr style="clear: both;" class="light"><!-- End of banner-like substance !--><div class="row-fluid" id="contentrow">
+        <div class="span10" id="contentcolumn">
+            <!--Body content-->
+            
+    <h1>eyeCode Programs</h1>
+    <div><div class="toc">
+<ul><li><a href="eyecode-programs.html#between">between</a><ul><li><a href="eyecode-programs.html#functions">functions</a></li>
+<li><a href="eyecode-programs.html#inline">inline</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#counting">counting</a><ul><li><a href="eyecode-programs.html#nospace">nospace</a></li>
+<li><a href="eyecode-programs.html#twospaces">twospaces</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#funcall">funcall</a><ul><li><a href="eyecode-programs.html#nospace_1">nospace</a></li>
+<li><a href="eyecode-programs.html#space">space</a></li>
+<li><a href="eyecode-programs.html#vars">vars</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#initvar">initvar</a><ul><li><a href="eyecode-programs.html#bothbad">bothbad</a></li>
+<li><a href="eyecode-programs.html#good">good</a></li>
+<li><a href="eyecode-programs.html#onebad">onebad</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#order">order</a><ul><li><a href="eyecode-programs.html#inorder">inorder</a></li>
+<li><a href="eyecode-programs.html#shuffled">shuffled</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#overload">overload</a><ul><li><a href="eyecode-programs.html#multmixed">multmixed</a></li>
+<li><a href="eyecode-programs.html#plusmixed">plusmixed</a></li>
+<li><a href="eyecode-programs.html#strings">strings</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#partition">partition</a><ul><li><a href="eyecode-programs.html#balanced">balanced</a></li>
+<li><a href="eyecode-programs.html#unbalanced">unbalanced</a></li>
+<li><a href="eyecode-programs.html#unbalanced_pivot">unbalanced_pivot</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#rectangle">rectangle</a><ul><li><a href="eyecode-programs.html#basic">basic</a></li>
+<li><a href="eyecode-programs.html#class">class</a></li>
+<li><a href="eyecode-programs.html#tuples">tuples</a></li>
+</ul></li>
+</ul></div>
+<h2 id="between">between</h2>
+<h3 id="functions">functions</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">between</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+    <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">):</span>
+            <span class="n">winners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">winners</span>
+
+<span class="k">def</span> <span class="nf">common</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">):</span>
+    <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item1</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">item1</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">:</span>
+            <span class="n">winners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">winners</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">x_btwn</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">x_btwn</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_btwn</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y_btwn</span>
+
+<span class="n">xy_common</span> <span class="o">=</span> <span class="n">common</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">xy_common</span>
+</pre></div>
+
+
+<h3 id="inline">inline</h3>
+<div class="code"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">x_between</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">x_i</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x_i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">x_between</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">x_between</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_between</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">y_i</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">y_i</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_i</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">):</span>
+        <span class="n">y_between</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y_between</span>
+
+<span class="n">xy_common</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">xy_common</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">xy_common</span>
+</pre></div>
+
+
+<h2 id="counting">counting</h2>
+<h3 id="nospace">nospace</h3>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">"The count is"</span><span class="p">,</span> <span class="n">i</span>
+    <span class="k">print</span> <span class="s">"Done counting"</span>
+</pre></div>
+
+
+<h3 id="twospaces">twospaces</h3>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">"The count is"</span><span class="p">,</span> <span class="n">i</span>
+
+    <span class="k">print</span> <span class="s">"Done counting"</span>
+</pre></div>
+
+
+<h2 id="funcall">funcall</h2>
+<h3 id="nospace_1">nospace</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="k">print</span> <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="space">space</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="k">print</span> <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="vars">vars</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">z</span>
+</pre></div>
+
+
+<h2 id="initvar">initvar</h2>
+<h3 id="bothbad">bothbad</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">a</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">b</span>
+</pre></div>
+
+
+<h3 id="good">good</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">a</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">b</span>
+</pre></div>
+
+
+<h3 id="onebad">onebad</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">a</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">b</span>
+</pre></div>
+
+
+<h2 id="order">order</h2>
+<h3 id="inorder">inorder</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+</pre></div>
+
+
+<h3 id="shuffled">shuffled</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span>
+</pre></div>
+
+
+<h2 id="overload">overload</h2>
+<h3 id="multmixed">multmixed</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">print</span> <span class="n">c</span> <span class="o">*</span> <span class="n">d</span>
+
+<span class="n">e</span> <span class="o">=</span> <span class="s">"5"</span>
+<span class="n">f</span> <span class="o">=</span> <span class="s">"3"</span>
+<span class="k">print</span> <span class="n">e</span> <span class="o">+</span> <span class="n">f</span>
+</pre></div>
+
+
+<h3 id="plusmixed">plusmixed</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">print</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">print</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span>
+
+<span class="n">e</span> <span class="o">=</span> <span class="s">"5"</span>
+<span class="n">f</span> <span class="o">=</span> <span class="s">"3"</span>
+<span class="k">print</span> <span class="n">e</span> <span class="o">+</span> <span class="n">f</span>
+</pre></div>
+
+
+<h3 id="strings">strings</h3>
+<div class="code"><pre><span class="n">a</span> <span class="o">=</span> <span class="s">"hi"</span>
+<span class="n">b</span> <span class="o">=</span> <span class="s">"bye"</span>
+<span class="k">print</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="s">"street"</span>
+<span class="n">d</span> <span class="o">=</span> <span class="s">"penny"</span>
+<span class="k">print</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span>
+
+<span class="n">e</span> <span class="o">=</span> <span class="s">"5"</span>
+<span class="n">f</span> <span class="o">=</span> <span class="s">"3"</span>
+<span class="k">print</span> <span class="n">e</span> <span class="o">+</span> <span class="n">f</span>
+</pre></div>
+
+
+<h2 id="partition">partition</h2>
+<h3 id="balanced">balanced</h3>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"low"</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"high"</span>
+</pre></div>
+
+
+<h3 id="unbalanced">unbalanced</h3>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"low"</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"high"</span>
+</pre></div>
+
+
+<h3 id="unbalanced_pivot">unbalanced_pivot</h3>
+<div class="code"><pre><span class="n">pivot</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"low"</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s">"high"</span>
+</pre></div>
+
+
+<h2 id="rectangle">rectangle</h2>
+<h3 id="basic">basic</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+    <span class="k">return</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span>
+
+<span class="n">r1_x1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">r1_y1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">r1_x2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">r1_y2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">r1_area</span> <span class="o">=</span> <span class="n">area</span><span class="p">(</span><span class="n">r1_x1</span><span class="p">,</span> <span class="n">r1_y1</span><span class="p">,</span> <span class="n">r1_x2</span><span class="p">,</span> <span class="n">r1_y2</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">r1_area</span>
+
+<span class="n">r2_x1</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">r2_y1</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">r2_x2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">r2_y2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">r2_area</span> <span class="o">=</span> <span class="n">area</span><span class="p">(</span><span class="n">r2_x1</span><span class="p">,</span> <span class="n">r2_y1</span><span class="p">,</span> <span class="n">r2_x2</span><span class="p">,</span> <span class="n">r2_y2</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">r2_area</span>
+</pre></div>
+
+
+<h3 id="class">class</h3>
+<div class="code"><pre><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y1</span> <span class="o">=</span> <span class="n">y1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x2</span> <span class="o">=</span> <span class="n">x2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y2</span> <span class="o">=</span> <span class="n">y2</span>
+
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x1</span>
+
+    <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y1</span>
+
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+
+<span class="n">rect1</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">rect1</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+
+<span class="n">rect2</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">rect2</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+</pre></div>
+
+
+<h3 id="tuples">tuples</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="n">xy_1</span><span class="p">,</span> <span class="n">xy_2</span><span class="p">):</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">xy_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">xy_2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xy_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">width</span> <span class="o">*</span> <span class="n">height</span>
+
+<span class="n">r1_xy_1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">r1_xy_2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">r1_area</span> <span class="o">=</span> <span class="n">area</span><span class="p">(</span><span class="n">r1_xy_1</span><span class="p">,</span> <span class="n">r1_xy</span>
+</pre></div></div>
+
+            <!--End of body content-->
+            <hr class="light"><small>Contents © 2013 <a href="about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        </div>
+        <div class="span2" id="sidebar">
+            <!--Sidebar content-->
+            <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
+            <li><a href="research.html"><i class="icon-question-sign"></i> Research</a></li>
+            <li><a href="pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="about-me.html"><i class="icon-user"></i> About Me</a></li>
+            <li class="divider"> </li>
+            <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>
+            <li><a href="../archive.html"><i class="icon-briefcase"></i> Archive</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://github.com/synesthesiam">My Github</a></li>
+            <li><a href="https://github.com/synesthesiam/artwork">Artwork</a></li>
+
+            </ul><div style="padding-left: 15px;">
+                
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/ar/">
+<img alt="Creative Commons License BY-NC-SA" style="border-width:0; margin-bottom:12px;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>
+            </div>
+            <!--End of sidebar content-->
+        </div>
+    
+    
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></div></div></div></div></body></html>

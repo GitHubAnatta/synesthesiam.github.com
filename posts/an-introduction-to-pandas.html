@@ -1,0 +1,1616 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="title" content="An Introduction to Pandas | synesthesiam"><meta name="description" content=""><meta name="author" content="Michael Hansen"><title>An Introduction to Pandas | synesthesiam</title><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><!-- Le styles --><link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/slides.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script src="../assets/js/slides.min.jquery.js" type="text/javascript"></script><!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
+<div class="container-fluid" id="container">
+    <div class="row-fluid" id="titlerow">
+    <div class="span12" id="titlecolumn">
+    <!-- Banner-like substance !-->
+        <div id="titlelogo">
+            <a href="../" title="synesthesiam">
+                <img src="../assets/img/mike_head.png" alt="logo"></a>
+        </div>
+        <div id="titlebox">
+            <h1 id="blog-title">
+                <a href="../" title="synesthesiam">synesthesiam<br><small>Michael Hansen</small>
+                </a>
+            </h1>
+            
+            
+        </div>
+        <hr style="clear: both;" class="light"><!-- End of banner-like substance !--><div class="row-fluid" id="contentrow">
+        <div class="span10" id="contentcolumn">
+            <!--Body content-->
+            
+    <div class="postbox">
+    
+    <h1>An Introduction to Pandas</h1>
+
+    <small>
+        Posted: 2013-04-23
+        
+
+    </small>
+    <br><br><div><p>When dealing with numeric matrices and vectors in Python, <a href="http://www.numpy.org/">NumPy</a> makes life a lot easier.
+For more complex data, however, it leaves a lot to be desired.
+If you're used to working with <a href="http://www.r-tutor.com/r-introduction/data-frame">data frames in R</a>, doing data analysis directly with NumPy feels like a step back.</p>
+<p>Fortunately, some nice folks have written the <a href="http://pandas.pydata.org/">Python Data Analysis Library</a> (a.k.a. pandas).
+Pandas provides an R-like <code>DataFrame</code>, produces high quality plots with <a href="http://matplotlib.org/">matplotlib</a>, and integrates nicely with other libraries that expect NumPy arrays.</p>
+<p>In this tutorial, we'll go through the basics of pandas using a year's worth of weather data from <a href="http://www.wunderground.com/">Weather Underground</a>.
+Pandas has a <strong>lot</strong> of functionality, so we'll only be able to cover a small fraction of what you can do.
+Check out the (very readable) <a href="http://pandas.pydata.org/pandas-docs/stable/">pandas docs</a> if you want to learn more.</p>
+<!-- TEASER_END -->
+
+<div class="toc">
+<ul><li><a href="an-introduction-to-pandas.html#getting-started">Getting Started</a></li>
+<li><a href="an-introduction-to-pandas.html#fun-with-columns">Fun with Columns</a></li>
+<li><a href="an-introduction-to-pandas.html#bulk-operations-with-apply">Bulk Operations with apply()</a></li>
+<li><a href="an-introduction-to-pandas.html#handing-missing-values">Handing Missing Values</a></li>
+<li><a href="an-introduction-to-pandas.html#accessing-individual-rows">Accessing Individual Rows</a></li>
+<li><a href="an-introduction-to-pandas.html#filtering">Filtering</a></li>
+<li><a href="an-introduction-to-pandas.html#grouping">Grouping</a></li>
+<li><a href="an-introduction-to-pandas.html#creating-new-columns">Creating New Columns</a></li>
+<li><a href="an-introduction-to-pandas.html#plotting">Plotting</a></li>
+<li><a href="an-introduction-to-pandas.html#getting-data-out">Getting Data Out</a></li>
+<li><a href="an-introduction-to-pandas.html#miscellanea">Miscellanea</a></li>
+</ul></div>
+<h2 id="getting-started">Getting Started</h2>
+<p>Installing pandas should be an easy process if you use pip:</p>
+<div class="code"><pre>sudo pip install pandas
+</pre></div>
+
+
+<p>For more complex scenarios, please see the <a href="http://pandas.pydata.org/pandas-docs/stable/install.html">installation instructions</a>.</p>
+<p>OK, let's get started by importing the pandas library.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">pandas</span>
+</pre></div>
+
+
+<p>Next, let's read in <a href="../assets/weather_year.csv">our data</a>.
+Because it's in a CSV file, we can use pandas' <code>read_csv</code> function to pull it directly into a <a href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#dataframe">DataFrame</a>.</p>
+<div class="code"><pre><span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"data/weather_year.csv"</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We can get a summary of the DataFrame by printing the object.</p>
+<div class="code"><pre><span class="n">data</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 366 entries, 0 to 365
+Data columns:
+EDT                           366  non-null values
+Max TemperatureF              366  non-null values
+Mean TemperatureF             366  non-null values
+Min TemperatureF              366  non-null values
+Max Dew PointF                366  non-null values
+MeanDew PointF                366  non-null values
+Min DewpointF                 366  non-null values
+Max Humidity                  366  non-null values
+ Mean Humidity                366  non-null values
+ Min Humidity                 366  non-null values
+ Max Sea Level PressureIn     366  non-null values
+ Mean Sea Level PressureIn    366  non-null values
+ Min Sea Level PressureIn     366  non-null values
+ Max VisibilityMiles          366  non-null values
+ Mean VisibilityMiles         366  non-null values
+ Min VisibilityMiles          366  non-null values
+ Max Wind SpeedMPH            366  non-null values
+ Mean Wind SpeedMPH           366  non-null values
+ Max Gust SpeedMPH            365  non-null values
+PrecipitationIn               366  non-null values
+ CloudCover                   366  non-null values
+ Events                       162  non-null values
+ WindDirDegrees               366  non-null values
+dtypes: float64(4), int64(16), object(3)
+</pre></div>
+
+
+<p>This gives us a lot of information. First, we can see that there are 366 rows (entries) -- a year and a day's worth of weather. Each column is printed along with however many "non-null" values are present.
+We'll talk more about <a href="http://pandas.pydata.org/pandas-docs/stable/missing_data.html">null (or missing) values in pandas</a> later, but for now we can note that only the "Max Gust SpeedMPH" and "Events" columns have fewer than 366 non-null values.
+Lastly, the data types (dtypes) of the columns are printed at the very bottom. We can see that there are 4 <code>float64</code>, 16 <code>int64</code>, and 3 <code>object</code> columns.</p>
+<div class="code"><pre><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>366
+</pre></div>
+
+
+<p>Using <code>len</code> on a DataFrame will give you the number of rows. You can get the column names using the <code>columns</code> property.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>Index([EDT, Max TemperatureF, Mean TemperatureF, Min TemperatureF,
+       Max Dew PointF, MeanDew PointF, Min DewpointF, Max Humidity,
+        Mean Humidity,  Min Humidity,  Max Sea Level PressureIn,
+        Mean Sea Level PressureIn,  Min Sea Level PressureIn,
+        Max VisibilityMiles,  Mean VisibilityMiles,  Min VisibilityMiles,
+        Max Wind SpeedMPH,  Mean Wind SpeedMPH,  Max Gust SpeedMPH,
+       PrecipitationIn,  CloudCover,  Events,  WindDirDegrees], dtype=object)
+</pre></div>
+
+
+<p>Columns can be accessed in two ways. The first is using the DataFrame like a dictionary with string keys:</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[</span><span class="s">"EDT"</span><span class="p">]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0     2012-3-10
+1     2012-3-11
+2     2012-3-12
+3     2012-3-13
+4     2012-3-14
+5     2012-3-15
+6     2012-3-16
+7     2012-3-17
+8     2012-3-18
+9     2012-3-19
+10    2012-3-20
+11    2012-3-21
+12    2012-3-22
+13    2012-3-23
+14    2012-3-24
+...
+351    2013-2-24
+352    2013-2-25
+353    2013-2-26
+354    2013-2-27
+355    2013-2-28
+356     2013-3-1
+357     2013-3-2
+358     2013-3-3
+359     2013-3-4
+360     2013-3-5
+361     2013-3-6
+362     2013-3-7
+363     2013-3-8
+364     2013-3-9
+365    2013-3-10
+Name: EDT, Length: 366
+</pre></div>
+
+
+<p>You can get multiple columns out at the same time by passing in a list of strings.</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[[</span><span class="s">"EDT"</span><span class="p">,</span> <span class="s">"Mean TemperatureF"</span><span class="p">]]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 366 entries, 0 to 365
+Data columns:
+EDT                  366  non-null values
+Mean TemperatureF    366  non-null values
+dtypes: int64(1), object(1)
+</pre></div>
+
+
+<p>The second way to access columns is using the dot syntax. This only works if your column name could also be a Python variable name (i.e., no spaces), and if it doesn't collide with another DataFrame property or function name (e.g., count, sum).</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">EDT</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0     2012-3-10
+1     2012-3-11
+2     2012-3-12
+3     2012-3-13
+4     2012-3-14
+5     2012-3-15
+6     2012-3-16
+7     2012-3-17
+8     2012-3-18
+9     2012-3-19
+10    2012-3-20
+11    2012-3-21
+12    2012-3-22
+13    2012-3-23
+14    2012-3-24
+...
+351    2013-2-24
+352    2013-2-25
+353    2013-2-26
+354    2013-2-27
+355    2013-2-28
+356     2013-3-1
+357     2013-3-2
+358     2013-3-3
+359     2013-3-4
+360     2013-3-5
+361     2013-3-6
+362     2013-3-7
+363     2013-3-8
+364     2013-3-9
+365    2013-3-10
+Name: EDT, Length: 366
+</pre></div>
+
+
+<p>We'll be mostly using the dot syntax here because you can auto-complete the names in IPython. The first pandas function we'll learn about is <code>head()</code>. This gives us the first 5 items in a column (or the first 5 rows in the DataFrame).</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">EDT</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    2012-3-10
+1    2012-3-11
+2    2012-3-12
+3    2012-3-13
+4    2012-3-14
+Name: EDT
+</pre></div>
+
+
+<p>Passing in a number <code>n</code> gives us the first <code>n</code> items in the column. There is also a corresponding <code>tail()</code> method that gives the <em>last</em> <code>n</code> items or rows.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">EDT</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    2012-3-10
+1    2012-3-11
+2    2012-3-12
+3    2012-3-13
+4    2012-3-14
+5    2012-3-15
+6    2012-3-16
+7    2012-3-17
+8    2012-3-18
+9    2012-3-19
+Name: EDT
+</pre></div>
+
+
+<p>This also works with the dictionary syntax.</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[</span><span class="s">"Mean TemperatureF"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    40
+1    49
+2    62
+3    63
+4    62
+Name: Mean TemperatureF
+</pre></div>
+
+
+<h2 id="fun-with-columns">Fun with Columns</h2>
+<p>The column names in <code>data</code> are a little unweildy, so we're going to rename them. This is as easy as assigning a new list of column names to the <code>columns</code> property of the DataFrame.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"date"</span><span class="p">,</span> <span class="s">"max_temp"</span><span class="p">,</span> <span class="s">"mean_temp"</span><span class="p">,</span> <span class="s">"min_temp"</span><span class="p">,</span> <span class="s">"max_dew"</span><span class="p">,</span>
+                <span class="s">"mean_dew"</span><span class="p">,</span> <span class="s">"min_dew"</span><span class="p">,</span> <span class="s">"max_humidity"</span><span class="p">,</span> <span class="s">"mean_humidity"</span><span class="p">,</span>
+                <span class="s">"min_humidity"</span><span class="p">,</span> <span class="s">"max_pressure"</span><span class="p">,</span> <span class="s">"mean_pressure"</span><span class="p">,</span>
+                <span class="s">"min_pressure"</span><span class="p">,</span> <span class="s">"max_visibilty"</span><span class="p">,</span> <span class="s">"mean_visibility"</span><span class="p">,</span>
+                <span class="s">"min_visibility"</span><span class="p">,</span> <span class="s">"max_wind"</span><span class="p">,</span> <span class="s">"mean_wind"</span><span class="p">,</span> <span class="s">"min_wind"</span><span class="p">,</span>
+                <span class="s">"precipitation"</span><span class="p">,</span> <span class="s">"cloud_cover"</span><span class="p">,</span> <span class="s">"events"</span><span class="p">,</span> <span class="s">"wind_dir"</span><span class="p">]</span>
+</pre></div>
+
+
+<p>These should be in the same order as the original columns. Let's take another look at our DataFrame summary.</p>
+<div class="code"><pre><span class="n">data</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 366 entries, 0 to 365
+Data columns:
+date               366  non-null values
+max_temp           366  non-null values
+mean_temp          366  non-null values
+min_temp           366  non-null values
+max_dew            366  non-null values
+mean_dew           366  non-null values
+min_dew            366  non-null values
+max_humidity       366  non-null values
+mean_humidity      366  non-null values
+min_humidity       366  non-null values
+max_pressure       366  non-null values
+mean_pressure      366  non-null values
+min_pressure       366  non-null values
+max_visibilty      366  non-null values
+mean_visibility    366  non-null values
+min_visibility     366  non-null values
+max_wind           366  non-null values
+mean_wind          366  non-null values
+min_wind           365  non-null values
+precipitation      366  non-null values
+cloud_cover        366  non-null values
+events             162  non-null values
+wind_dir           366  non-null values
+dtypes: float64(4), int64(16), object(3)
+</pre></div>
+
+
+<p>Now our columns can all be accessed using the dot syntax!</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">mean_temp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    40
+1    49
+2    62
+3    63
+4    62
+Name: mean_temp
+</pre></div>
+
+
+<p>There are lots useful methods on columns, such as <code>std()</code> to get the standard deviation. Most of pandas' methods will happily ignore missing values like <code>NaN</code>.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">mean_temp</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>18.436505996251075
+</pre></div>
+
+
+<p>Some methods, like <code>plot()</code> and <code>hist()</code> produce plots using <a href="http://matplotlib.org/">matplotlib</a>. We'll go over plotting in more detail later.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">mean_temp</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;matplotlib.axes.AxesSubplot at 0x59ddad0&gt;
+</pre></div>
+
+
+<p><img alt="" src="../assets/img/gen_PKuHTrCJCxnulQjfZwpQNM5JUTk.png"></p>
+<p>By the way, many of the column-specific methods also work on the entire DataFrame. Instead of a single number, you'll get a result for each column.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>max_temp           20.361247
+mean_temp          18.436506
+min_temp           17.301141
+max_dew            16.397178
+mean_dew           16.829996
+min_dew            17.479449
+max_humidity        9.108438
+mean_humidity       9.945591
+min_humidity       15.360261
+max_pressure        0.172189
+mean_pressure       0.174112
+min_pressure        0.182476
+max_visibilty       0.073821
+mean_visibility     1.875406
+min_visibility      3.792219
+max_wind            5.564329
+mean_wind           3.200940
+min_wind            8.131092
+cloud_cover         2.707261
+wind_dir           94.045080
+</pre></div>
+
+
+<h2 id="bulk-operations-with-apply">Bulk Operations with <code>apply()</code></h2>
+<p>Methods like <code>sum()</code> and <code>std()</code> work on entire columns. We can run our own functions across all values in a column (or row) using <code>apply()</code>.</p>
+<p>To give you an idea of how this works, let's consider the "date" column in our DataFrame (formally "EDT").</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    2012-3-10
+1    2012-3-11
+2    2012-3-12
+3    2012-3-13
+4    2012-3-14
+Name: date
+</pre></div>
+
+
+<p>We can use the <code>values</code> property of the column to get a list of values for the column. Inspecting the first value reveals that these are strings with a particular format.</p>
+<div class="code"><pre><span class="n">first_date</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">first_date</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>'2012-3-10'
+</pre></div>
+
+
+<p>The <code>strptime</code> function from the <code>datetime</code> module will make quick work of this date string.</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">first_date</span><span class="p">,</span> <span class="s">"%Y-%m-</span><span class="si">%d</span><span class="s">"</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>datetime.datetime(2012, 3, 10, 0, 0)
+</pre></div>
+
+
+<p>Using the <code>apply()</code> method, which takes an <a href="http://docs.python.org/2/reference/expressions.html#lambda">anonymous function</a>, we can apply <code>strptime</code> to each value in the column. We'll overwrite the string date values with their Python <code>datetime</code> equivalents.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="s">"%Y-%m-</span><span class="si">%d</span><span class="s">"</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>0    2012-03-10 00:00:00
+1    2012-03-11 00:00:00
+2    2012-03-12 00:00:00
+3    2012-03-13 00:00:00
+4    2012-03-14 00:00:00
+Name: date
+</pre></div>
+
+
+<p>Let's go one step futher. Each row in our DateFrame represents the weather from a single day. Each row in a DataFrame is associated with an <em>index</em>, which is a label that uniquely identifies a row.</p>
+<p>Our row indices up to now have been auto-generated by pandas, and are simply integers from 0 to 365. If we use dates instead of integers for our index, we will get some extra benefits from pandas when plotting later on. Overwriting the index is as easy as assigning to the <code>index</code> property of the DataFrame.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">date</span>
+<span class="n">data</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 366 entries, 2012-03-10 00:00:00 to 2013-03-10 00:00:00
+Data columns:
+date               366  non-null values
+max_temp           366  non-null values
+mean_temp          366  non-null values
+min_temp           366  non-null values
+max_dew            366  non-null values
+mean_dew           366  non-null values
+min_dew            366  non-null values
+max_humidity       366  non-null values
+mean_humidity      366  non-null values
+min_humidity       366  non-null values
+max_pressure       366  non-null values
+mean_pressure      366  non-null values
+min_pressure       366  non-null values
+max_visibilty      366  non-null values
+mean_visibility    366  non-null values
+min_visibility     366  non-null values
+max_wind           366  non-null values
+mean_wind          366  non-null values
+min_wind           365  non-null values
+precipitation      366  non-null values
+cloud_cover        366  non-null values
+events             162  non-null values
+wind_dir           366  non-null values
+dtypes: float64(4), int64(16), object(3)
+</pre></div>
+
+
+<p>Now we can quickly look up a row by its date with the <code>ix[]</code> property.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">19</span><span class="p">)]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date               2012-08-19 00:00:00
+max_temp                            82
+mean_temp                           67
+min_temp                            51
+max_dew                             56
+mean_dew                            50
+min_dew                             42
+max_humidity                        96
+mean_humidity                       62
+min_humidity                        28
+max_pressure                     29.95
+mean_pressure                    29.92
+min_pressure                     29.89
+max_visibilty                       10
+mean_visibility                     10
+min_visibility                      10
+max_wind                            14
+mean_wind                            3
+min_wind                            21
+precipitation                     0.00
+cloud_cover                          1
+events                             NaN
+wind_dir                             1
+Name: 2012-08-19 00:00:00
+</pre></div>
+
+
+<p>With all of the dates in the index now, we no longer need the "date" column. Let's drop it.</p>
+<div class="code"><pre><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">"date"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>Index([max_temp, mean_temp, min_temp, max_dew, mean_dew, min_dew,
+       max_humidity, mean_humidity, min_humidity, max_pressure,
+       mean_pressure, min_pressure, max_visibilty, mean_visibility,
+       min_visibility, max_wind, mean_wind, min_wind, precipitation,
+       cloud_cover, events, wind_dir], dtype=object)
+</pre></div>
+
+
+<p>Note that we need to pass in <code>axis=1</code> in order to drop a column. For more details, check out the documentation for <code>drop</code>.</p>
+<h2 id="handing-missing-values">Handing Missing Values</h2>
+<p>Pandas considers values like <code>NaN</code> and <code>None</code> to represent missing data. The <code>pandas.isnull</code> function can be used to tell whether or not a value is missing.</p>
+<p>Let's use <code>apply()</code> across all of the columns in our DataFrame to figure out which values are missing.</p>
+<div class="code"><pre><span class="n">empty</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">col</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+<span class="n">empty</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 366 entries, 2012-03-10 00:00:00 to 2013-03-10 00:00:00
+Freq: D
+Data columns:
+max_temp           366  non-null values
+mean_temp          366  non-null values
+min_temp           366  non-null values
+max_dew            366  non-null values
+mean_dew           366  non-null values
+min_dew            366  non-null values
+max_humidity       366  non-null values
+mean_humidity      366  non-null values
+min_humidity       366  non-null values
+max_pressure       366  non-null values
+mean_pressure      366  non-null values
+min_pressure       366  non-null values
+max_visibilty      366  non-null values
+mean_visibility    366  non-null values
+min_visibility     366  non-null values
+max_wind           366  non-null values
+mean_wind          366  non-null values
+min_wind           366  non-null values
+precipitation      366  non-null values
+cloud_cover        366  non-null values
+events             366  non-null values
+wind_dir           366  non-null values
+dtypes: bool(22)
+</pre></div>
+
+
+<p>We got back a dataframe (<code>empty</code>) with boolean values for all 22 columns and 366 rows. Inspecting the first 10 values of the "events", column we can see that there are some missing values because a <code>True</code> was returned from <code>pandas.isnull</code>.</p>
+<div class="code"><pre><span class="n">empty</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10     True
+2012-03-11    False
+2012-03-12    False
+2012-03-13     True
+2012-03-14     True
+2012-03-15    False
+2012-03-16     True
+2012-03-17    False
+2012-03-18    False
+2012-03-19     True
+Freq: D, Name: events
+</pre></div>
+
+
+<p>Looking at the corresponding rows in the original DataFrame reveals that pandas has filled in <code>NaN</code> for empty values in the "events" column.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10                  NaN
+2012-03-11                 Rain
+2012-03-12                 Rain
+2012-03-13                  NaN
+2012-03-14                  NaN
+2012-03-15    Rain-Thunderstorm
+2012-03-16                  NaN
+2012-03-17     Fog-Thunderstorm
+2012-03-18                 Rain
+2012-03-19                  NaN
+Freq: D, Name: events
+</pre></div>
+
+
+<p>This isn't exactly what we want. One option is to drop all rows in the DataFrame with missing "events" values.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s">"events"</span><span class="p">])</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 162 entries, 2012-03-11 00:00:00 to 2013-03-06 00:00:00
+Data columns:
+max_temp           162  non-null values
+mean_temp          162  non-null values
+min_temp           162  non-null values
+max_dew            162  non-null values
+mean_dew           162  non-null values
+min_dew            162  non-null values
+max_humidity       162  non-null values
+mean_humidity      162  non-null values
+min_humidity       162  non-null values
+max_pressure       162  non-null values
+mean_pressure      162  non-null values
+min_pressure       162  non-null values
+max_visibilty      162  non-null values
+mean_visibility    162  non-null values
+min_visibility     162  non-null values
+max_wind           162  non-null values
+mean_wind          162  non-null values
+min_wind           162  non-null values
+precipitation      162  non-null values
+cloud_cover        162  non-null values
+events             162  non-null values
+wind_dir           162  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>The DataFrame we get back has only 162 rows, so we can infer that there were 366 - 162 = 204 missing values in the "events" column. Note that this didn't affect <code>data</code>; we're just looking at a copy.</p>
+<p>Instead of dropping the rows with missing values, let's fill them with empty strings (you'll see why in a moment). This is easily done with the <code>fillna()</code> function. We'll go ahead and overwrite the "events" column with empty string missing values instead of <code>NaN</code>.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10                     
+2012-03-11                 Rain
+2012-03-12                 Rain
+2012-03-13                     
+2012-03-14                     
+2012-03-15    Rain-Thunderstorm
+2012-03-16                     
+2012-03-17     Fog-Thunderstorm
+2012-03-18                 Rain
+2012-03-19                     
+Freq: D, Name: events
+</pre></div>
+
+
+<h2 id="accessing-individual-rows">Accessing Individual Rows</h2>
+<p>Sometimes you need to access individual rows in your DataFrame. The <code>irow()</code> function lets you grab the ith row from a DataFrame (starting from 0).</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">irow</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>max_temp              56
+mean_temp             40
+min_temp              24
+max_dew               24
+mean_dew              20
+min_dew               16
+max_humidity          74
+mean_humidity         50
+min_humidity          26
+max_pressure       30.53
+mean_pressure      30.45
+min_pressure       30.34
+max_visibilty         10
+mean_visibility       10
+min_visibility        10
+max_wind              13
+mean_wind              6
+min_wind              17
+precipitation       0.00
+cloud_cover            0
+events                  
+wind_dir             138
+Name: 2012-03-10 00:00:00
+</pre></div>
+
+
+<p>Of course, another option is to use the index.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>max_temp              32
+mean_temp             26
+min_temp              20
+max_dew               31
+mean_dew              25
+min_dew               16
+max_humidity          92
+mean_humidity         83
+min_humidity          74
+max_pressure        30.2
+mean_pressure      30.11
+min_pressure       30.04
+max_visibilty          9
+mean_visibility        5
+min_visibility         2
+max_wind              14
+mean_wind              5
+min_wind              15
+precipitation          T
+cloud_cover            8
+events                  
+wind_dir             353
+Name: 2013-01-01 00:00:00
+</pre></div>
+
+
+<p>You can iterate over each row in the DataFrame with <code>iterrows()</code>. Note that this function returns <strong>both</strong> the index and the row. Also, you must access columns in the row you get back from <code>iterrows()</code> with the dictionary syntax.</p>
+<div class="code"><pre><span class="n">num_rain</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s">"Rain"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s">"events"</span><span class="p">]:</span>
+        <span class="n">num_rain</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="s">"Days with rain: {0}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_rain</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>'Days with rain: 121'
+</pre></div>
+
+
+<h2 id="filtering">Filtering</h2>
+<p>Most of your time using pandas will likely be devoted to selecting rows of interest from a DataFrame. In addition to strings, the dictionary syntax accepts things like this:</p>
+<div class="code"><pre><span class="n">freezing_days</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span> <span class="o">&lt;=</span> <span class="mi">32</span><span class="p">]</span>
+<span class="n">freezing_days</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 21 entries, 2012-11-24 00:00:00 to 2013-03-06 00:00:00
+Data columns:
+max_temp           21  non-null values
+mean_temp          21  non-null values
+min_temp           21  non-null values
+max_dew            21  non-null values
+mean_dew           21  non-null values
+min_dew            21  non-null values
+max_humidity       21  non-null values
+mean_humidity      21  non-null values
+min_humidity       21  non-null values
+max_pressure       21  non-null values
+mean_pressure      21  non-null values
+min_pressure       21  non-null values
+max_visibilty      21  non-null values
+mean_visibility    21  non-null values
+min_visibility     21  non-null values
+max_wind           21  non-null values
+mean_wind          21  non-null values
+min_wind           21  non-null values
+precipitation      21  non-null values
+cloud_cover        21  non-null values
+events             21  non-null values
+wind_dir           21  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>We get back another DataFrame with fewer rows (21 in this case). This DataFrame can be filtered down even more.</p>
+<div class="code"><pre><span class="n">freezing_days</span><span class="p">[</span><span class="n">freezing_days</span><span class="o">.</span><span class="n">min_temp</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 7 entries, 2012-11-24 00:00:00 to 2013-03-06 00:00:00
+Data columns:
+max_temp           7  non-null values
+mean_temp          7  non-null values
+min_temp           7  non-null values
+max_dew            7  non-null values
+mean_dew           7  non-null values
+min_dew            7  non-null values
+max_humidity       7  non-null values
+mean_humidity      7  non-null values
+min_humidity       7  non-null values
+max_pressure       7  non-null values
+mean_pressure      7  non-null values
+min_pressure       7  non-null values
+max_visibilty      7  non-null values
+mean_visibility    7  non-null values
+min_visibility     7  non-null values
+max_wind           7  non-null values
+mean_wind          7  non-null values
+min_wind           7  non-null values
+precipitation      7  non-null values
+cloud_cover        7  non-null values
+events             7  non-null values
+wind_dir           7  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>Or, using boolean operations, we could apply both filters to the original DataFrame at the same time.</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[(</span><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span> <span class="o">&lt;=</span> <span class="mi">32</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">min_temp</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">)]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 7 entries, 2012-11-24 00:00:00 to 2013-03-06 00:00:00
+Data columns:
+max_temp           7  non-null values
+mean_temp          7  non-null values
+min_temp           7  non-null values
+max_dew            7  non-null values
+mean_dew           7  non-null values
+min_dew            7  non-null values
+max_humidity       7  non-null values
+mean_humidity      7  non-null values
+min_humidity       7  non-null values
+max_pressure       7  non-null values
+mean_pressure      7  non-null values
+min_pressure       7  non-null values
+max_visibilty      7  non-null values
+mean_visibility    7  non-null values
+min_visibility     7  non-null values
+max_wind           7  non-null values
+mean_wind          7  non-null values
+min_wind           7  non-null values
+precipitation      7  non-null values
+cloud_cover        7  non-null values
+events             7  non-null values
+wind_dir           7  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>It's important to understand what's really going on underneath with filtering. Let's look at what kind of object we actually get back when creating a filter.</p>
+<div class="code"><pre><span class="n">temp_max</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max_temp</span> <span class="o">&lt;=</span> <span class="mi">32</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">temp_max</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>pandas.core.series.TimeSeries
+</pre></div>
+
+
+<p>This is a pandas <code>Series</code> object, which is the one-dimensional equivalent of a DataFrame. Because our DataFrame uses datetime objects for the index, we have a specialized <code>TimeSeries</code> object.</p>
+<p>What's inside the filter?</p>
+<div class="code"><pre><span class="n">temp_max</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    False
+2012-03-11    False
+2012-03-12    False
+2012-03-13    False
+2012-03-14    False
+2012-03-15    False
+2012-03-16    False
+2012-03-17    False
+2012-03-18    False
+2012-03-19    False
+2012-03-20    False
+2012-03-21    False
+2012-03-22    False
+2012-03-23    False
+2012-03-24    False
+...
+2013-02-24    False
+2013-02-25    False
+2013-02-26    False
+2013-02-27    False
+2013-02-28    False
+2013-03-01    False
+2013-03-02     True
+2013-03-03    False
+2013-03-04    False
+2013-03-05    False
+2013-03-06     True
+2013-03-07    False
+2013-03-08    False
+2013-03-09    False
+2013-03-10    False
+Freq: D, Name: max_temp, Length: 366
+</pre></div>
+
+
+<p>Our filter is nothing more than a <code>Series</code> with a <em>boolean value for every item in the index</em>. When we "run the filter" as so:</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[</span><span class="n">temp_max</span><span class="p">]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 21 entries, 2012-11-24 00:00:00 to 2013-03-06 00:00:00
+Data columns:
+max_temp           21  non-null values
+mean_temp          21  non-null values
+min_temp           21  non-null values
+max_dew            21  non-null values
+mean_dew           21  non-null values
+min_dew            21  non-null values
+max_humidity       21  non-null values
+mean_humidity      21  non-null values
+min_humidity       21  non-null values
+max_pressure       21  non-null values
+mean_pressure      21  non-null values
+min_pressure       21  non-null values
+max_visibilty      21  non-null values
+mean_visibility    21  non-null values
+min_visibility     21  non-null values
+max_wind           21  non-null values
+mean_wind          21  non-null values
+min_wind           21  non-null values
+precipitation      21  non-null values
+cloud_cover        21  non-null values
+events             21  non-null values
+wind_dir           21  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>pandas lines up the rows of the DataFrame and the filter using the index, and then keeps the rows with a <code>True</code> filter value. That's it.</p>
+<p>Let's create another filter.</p>
+<div class="code"><pre><span class="n">temp_min</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min_temp</span> <span class="o">&gt;=</span> <span class="mi">20</span>
+<span class="n">temp_min</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    True
+2012-03-11    True
+2012-03-12    True
+2012-03-13    True
+2012-03-14    True
+2012-03-15    True
+2012-03-16    True
+2012-03-17    True
+2012-03-18    True
+2012-03-19    True
+2012-03-20    True
+2012-03-21    True
+2012-03-22    True
+2012-03-23    True
+2012-03-24    True
+...
+2013-02-24     True
+2013-02-25     True
+2013-02-26     True
+2013-02-27     True
+2013-02-28     True
+2013-03-01     True
+2013-03-02     True
+2013-03-03    False
+2013-03-04    False
+2013-03-05     True
+2013-03-06     True
+2013-03-07     True
+2013-03-08     True
+2013-03-09     True
+2013-03-10     True
+Freq: D, Name: min_temp, Length: 366
+</pre></div>
+
+
+<p>Now we can see what the boolean operations are doing. Something like <code>&amp;</code> (<strong>not</strong> <code>and</code>)...</p>
+<div class="code"><pre><span class="n">temp_min</span> <span class="o">&amp;</span> <span class="n">temp_max</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    False
+2012-03-11    False
+2012-03-12    False
+2012-03-13    False
+2012-03-14    False
+2012-03-15    False
+2012-03-16    False
+2012-03-17    False
+2012-03-18    False
+2012-03-19    False
+2012-03-20    False
+2012-03-21    False
+2012-03-22    False
+2012-03-23    False
+2012-03-24    False
+...
+2013-02-24    False
+2013-02-25    False
+2013-02-26    False
+2013-02-27    False
+2013-02-28    False
+2013-03-01    False
+2013-03-02     True
+2013-03-03    False
+2013-03-04    False
+2013-03-05    False
+2013-03-06     True
+2013-03-07    False
+2013-03-08    False
+2013-03-09    False
+2013-03-10    False
+Freq: D, Length: 366
+</pre></div>
+
+
+<p>...is just lining up the two filters using the index, performing a boolean AND operation, and returning the result as another <code>Series</code>.</p>
+<p>We can do other boolean operations too, like OR:</p>
+<div class="code"><pre><span class="n">temp_min</span> <span class="o">|</span> <span class="n">temp_max</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    True
+2012-03-11    True
+2012-03-12    True
+2012-03-13    True
+2012-03-14    True
+2012-03-15    True
+2012-03-16    True
+2012-03-17    True
+2012-03-18    True
+2012-03-19    True
+2012-03-20    True
+2012-03-21    True
+2012-03-22    True
+2012-03-23    True
+2012-03-24    True
+...
+2013-02-24     True
+2013-02-25     True
+2013-02-26     True
+2013-02-27     True
+2013-02-28     True
+2013-03-01     True
+2013-03-02     True
+2013-03-03    False
+2013-03-04    False
+2013-03-05     True
+2013-03-06     True
+2013-03-07     True
+2013-03-08     True
+2013-03-09     True
+2013-03-10     True
+Freq: D, Length: 366
+</pre></div>
+
+
+<p>Because the result is just another <code>Series</code>, we have all of the regular pandas functions at our disposal. The <code>any()</code> function returns <code>True</code> if any value in the <code>Series</code> is <code>True</code>.</p>
+<div class="code"><pre><span class="n">temp_both</span> <span class="o">=</span> <span class="n">temp_min</span> <span class="o">&amp;</span> <span class="n">temp_max</span>
+<span class="n">temp_both</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>True
+</pre></div>
+
+
+<p>Sometimes filters aren't so intuitive. This (sadly) doesn't work:</p>
+<div class="code"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">"Rain"</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="p">]</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span> <span class="c"># "KeyError: no item named False"</span>
+</pre></div>
+
+
+<p>We can wrap it up in an <code>apply()</code> call fairly easily, though:</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="s">"Rain"</span> <span class="ow">in</span> <span class="n">e</span><span class="p">)]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 121 entries, 2012-03-11 00:00:00 to 2013-03-05 00:00:00
+Data columns:
+max_temp           121  non-null values
+mean_temp          121  non-null values
+min_temp           121  non-null values
+max_dew            121  non-null values
+mean_dew           121  non-null values
+min_dew            121  non-null values
+max_humidity       121  non-null values
+mean_humidity      121  non-null values
+min_humidity       121  non-null values
+max_pressure       121  non-null values
+mean_pressure      121  non-null values
+min_pressure       121  non-null values
+max_visibilty      121  non-null values
+mean_visibility    121  non-null values
+min_visibility     121  non-null values
+max_wind           121  non-null values
+mean_wind          121  non-null values
+min_wind           121  non-null values
+precipitation      121  non-null values
+cloud_cover        121  non-null values
+events             121  non-null values
+wind_dir           121  non-null values
+dtypes: float64(4), int64(16), object(2)
+</pre></div>
+
+
+<h2 id="grouping">Grouping</h2>
+<p>Besides <code>apply()</code>, another great DataFrame function is <code>groupby()</code>.
+It will group a DataFrame by one or more columns, and let you iterate through each group.</p>
+<p>As an example, let's group our DataFrame by the "cloud_cover" column (a value ranging from 0 to 8).</p>
+<div class="code"><pre><span class="n">cover_temps</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">cover</span><span class="p">,</span> <span class="n">cover_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"cloud_cover"</span><span class="p">):</span>
+    <span class="n">cover_temps</span><span class="p">[</span><span class="n">cover</span><span class="p">]</span> <span class="o">=</span> <span class="n">cover_data</span><span class="o">.</span><span class="n">mean_temp</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c"># The mean mean temp!</span>
+<span class="n">cover_temps</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>{0: 59.730769230769234,
+ 1: 61.415094339622641,
+ 2: 59.727272727272727,
+ 3: 58.0625,
+ 4: 51.5,
+ 5: 50.827586206896555,
+ 6: 57.727272727272727,
+ 7: 46.5,
+ 8: 40.909090909090907}
+</pre></div>
+
+
+<p>When you iterate through the result of <code>groupby()</code>, you will get a tuple.
+The first item is the column value, and the second item is a filtered DataFrame (where the column equals the first tuple value).</p>
+<p>You can group by more than one column as well.
+In this case, the first tuple item returned by <code>groupby()</code> will itself be a tuple with the value of each column.</p>
+<div class="code"><pre><span class="k">for</span> <span class="p">(</span><span class="n">cover</span><span class="p">,</span> <span class="n">events</span><span class="p">),</span> <span class="n">group_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">"cloud_cover"</span><span class="p">,</span> <span class="s">"events"</span><span class="p">]):</span>
+    <span class="k">print</span> <span class="s">"Cover: {0}, Events: {1}, Count: {2}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cover</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">group_data</span><span class="p">))</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>Cover: 0, Events: , Count: 99
+Cover: 0, Events: Fog, Count: 2
+Cover: 0, Events: Rain, Count: 2
+Cover: 0, Events: Thunderstorm, Count: 1
+Cover: 1, Events: , Count: 35
+Cover: 1, Events: Fog, Count: 5
+Cover: 1, Events: Fog-Rain, Count: 1
+Cover: 1, Events: Rain, Count: 4
+Cover: 1, Events: Rain-Thunderstorm, Count: 2
+Cover: 1, Events: Thunderstorm, Count: 6
+Cover: 2, Events: , Count: 20
+Cover: 2, Events: Fog, Count: 1
+Cover: 2, Events: Rain, Count: 5
+Cover: 2, Events: Rain-Thunderstorm, Count: 4
+Cover: 2, Events: Snow, Count: 1
+Cover: 2, Events: Thunderstorm, Count: 2
+Cover: 3, Events: , Count: 12
+Cover: 3, Events: Fog, Count: 2
+Cover: 3, Events: Fog-Rain-Thunderstorm, Count: 3
+Cover: 3, Events: Fog-Thunderstorm, Count: 1
+Cover: 3, Events: Rain, Count: 9
+Cover: 3, Events: Rain-Thunderstorm, Count: 4
+Cover: 3, Events: Snow, Count: 1
+Cover: 4, Events: , Count: 16
+Cover: 4, Events: Fog, Count: 3
+Cover: 4, Events: Fog-Rain, Count: 2
+Cover: 4, Events: Fog-Rain-Thunderstorm, Count: 2
+Cover: 4, Events: Rain, Count: 10
+Cover: 4, Events: Rain-Thunderstorm, Count: 6
+Cover: 4, Events: Snow, Count: 1
+Cover: 5, Events: , Count: 9
+Cover: 5, Events: Fog-Rain, Count: 1
+Cover: 5, Events: Fog-Rain-Snow, Count: 1
+Cover: 5, Events: Rain, Count: 13
+Cover: 5, Events: Rain-Thunderstorm, Count: 3
+Cover: 5, Events: Snow, Count: 2
+Cover: 6, Events: , Count: 3
+Cover: 6, Events: Fog-Rain, Count: 2
+Cover: 6, Events: Fog-Rain-Snow, Count: 1
+Cover: 6, Events: Fog-Rain-Thunderstorm, Count: 2
+Cover: 6, Events: Rain, Count: 9
+Cover: 6, Events: Rain-Thunderstorm, Count: 4
+Cover: 6, Events: Snow, Count: 1
+Cover: 7, Events: , Count: 5
+Cover: 7, Events: Fog-Rain, Count: 1
+Cover: 7, Events: Fog-Rain-Thunderstorm, Count: 1
+Cover: 7, Events: Fog-Snow, Count: 3
+Cover: 7, Events: Rain, Count: 6
+Cover: 7, Events: Rain-Thunderstorm, Count: 3
+Cover: 7, Events: Snow, Count: 1
+Cover: 8, Events: , Count: 5
+Cover: 8, Events: Fog-Rain, Count: 4
+Cover: 8, Events: Fog-Rain-Snow, Count: 1
+Cover: 8, Events: Fog-Rain-Snow-Thunderstorm, Count: 1
+Cover: 8, Events: Fog-Snow, Count: 2
+Cover: 8, Events: Rain, Count: 11
+Cover: 8, Events: Rain-Snow, Count: 3
+Cover: 8, Events: Snow, Count: 6
+</pre></div>
+
+
+<h2 id="creating-new-columns">Creating New Columns</h2>
+<p>Weather events in our DataFrame are stored in strings like "Rain-Thunderstorm" to represent that it rained and there was a thunderstorm that day. Let's split them out into boolean "rain", "thunderstorm", etc. columns.</p>
+<p>First, let's discover the different kinds of weather events we have with <code>unique()</code>.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>array([, Rain, Rain-Thunderstorm, Fog-Thunderstorm, Fog-Rain, Thunderstorm,
+       Fog-Rain-Thunderstorm, Fog, Fog-Rain-Snow,
+       Fog-Rain-Snow-Thunderstorm, Fog-Snow, Snow, Rain-Snow], dtype=object)
+</pre></div>
+
+
+<p>Looks like we have "Rain", "Thunderstorm", "Fog", and "Snow" events. Creating a new column for each of these event kinds is a piece of cake with the dictionary syntax.</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">event_kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"Rain"</span><span class="p">,</span> <span class="s">"Thunderstorm"</span><span class="p">,</span> <span class="s">"Fog"</span><span class="p">,</span> <span class="s">"Snow"</span><span class="p">]:</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="n">event_kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c"># Turn "Rain" into "rain", etc.</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">event_kind</span> <span class="ow">in</span> <span class="n">e</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 366 entries, 2012-03-10 00:00:00 to 2013-03-10 00:00:00
+Freq: D
+Data columns:
+max_temp           366  non-null values
+mean_temp          366  non-null values
+min_temp           366  non-null values
+max_dew            366  non-null values
+mean_dew           366  non-null values
+min_dew            366  non-null values
+max_humidity       366  non-null values
+mean_humidity      366  non-null values
+min_humidity       366  non-null values
+max_pressure       366  non-null values
+mean_pressure      366  non-null values
+min_pressure       366  non-null values
+max_visibilty      366  non-null values
+mean_visibility    366  non-null values
+min_visibility     366  non-null values
+max_wind           366  non-null values
+mean_wind          366  non-null values
+min_wind           365  non-null values
+precipitation      366  non-null values
+cloud_cover        366  non-null values
+events             366  non-null values
+wind_dir           366  non-null values
+rain               366  non-null values
+thunderstorm       366  non-null values
+fog                366  non-null values
+snow               366  non-null values
+dtypes: bool(4), float64(4), int64(16), object(2)
+</pre></div>
+
+
+<p>Our new columns show up at the bottom. We can access them now with the dot syntax.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">rain</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    False
+2012-03-11     True
+2012-03-12     True
+2012-03-13    False
+2012-03-14    False
+2012-03-15     True
+2012-03-16    False
+2012-03-17    False
+2012-03-18     True
+2012-03-19    False
+2012-03-20    False
+2012-03-21    False
+2012-03-22     True
+2012-03-23     True
+2012-03-24     True
+...
+2013-02-24    False
+2013-02-25    False
+2013-02-26     True
+2013-02-27    False
+2013-02-28     True
+2013-03-01    False
+2013-03-02    False
+2013-03-03    False
+2013-03-04     True
+2013-03-05     True
+2013-03-06    False
+2013-03-07    False
+2013-03-08    False
+2013-03-09    False
+2013-03-10    False
+Freq: D, Name: rain, Length: 366
+</pre></div>
+
+
+<p>We can also do cool things like find out how many <code>True</code> values there are (i.e., how many days had rain)...</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">rain</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>121
+</pre></div>
+
+
+<p>...and get all the days that had both rain and snow!</p>
+<div class="code"><pre><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">rain</span> <span class="o">&amp;</span> <span class="n">data</span><span class="o">.</span><span class="n">snow</span><span class="p">]</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+DatetimeIndex: 7 entries, 2012-11-12 00:00:00 to 2013-03-05 00:00:00
+Data columns:
+max_temp           7  non-null values
+mean_temp          7  non-null values
+min_temp           7  non-null values
+max_dew            7  non-null values
+mean_dew           7  non-null values
+min_dew            7  non-null values
+max_humidity       7  non-null values
+mean_humidity      7  non-null values
+min_humidity       7  non-null values
+max_pressure       7  non-null values
+mean_pressure      7  non-null values
+min_pressure       7  non-null values
+max_visibilty      7  non-null values
+mean_visibility    7  non-null values
+min_visibility     7  non-null values
+max_wind           7  non-null values
+mean_wind          7  non-null values
+min_wind           7  non-null values
+precipitation      7  non-null values
+cloud_cover        7  non-null values
+events             7  non-null values
+wind_dir           7  non-null values
+rain               7  non-null values
+thunderstorm       7  non-null values
+fog                7  non-null values
+snow               7  non-null values
+dtypes: bool(4), float64(4), int64(16), object(2)
+</pre></div>
+
+
+<h2 id="plotting">Plotting</h2>
+<p>We've already seen how the <code>hist()</code> function makes generating histograms a snap. Let's look at the <code>plot()</code> function now.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;matplotlib.axes.AxesSubplot at 0x59cbd10&gt;
+</pre></div>
+
+
+<p><img alt="" src="../assets/img/gen_ET23pEmZ36bUBGi1b4ondovwQec.png"></p>
+<p>That one line of code did a <strong>lot</strong> for us. First, it created a nice looking line plot using the maximum temperature column from our DataFrame. Second, because we used <code>datetime</code> objects in our index, pandas labeled the x-axis appropriately.</p>
+<p>Pandas is smart too. If we're only looking at a couple of days, the x-axis looks different:</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;matplotlib.axes.AxesSubplot at 0x62ca490&gt;
+</pre></div>
+
+
+<p><img alt="" src="../assets/img/gen_rBTtqHBz7WRgJvz7DztzTFdO0.png"></p>
+<p>Prefer a bar plot? Pandas has got your covered.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">"bar"</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;matplotlib.axes.AxesSubplot at 0x62f6050&gt;
+</pre></div>
+
+
+<p><img alt="" src="../assets/img/gen_g9ELo15OiyLBfRj79HEt2q4sw.png"></p>
+<p>The <code>plot()</code> function returns a matplotlib <code>AxesSubPlot</code> object. You can pass this object into subsequent calls to <code>plot()</code> in order to compose plots.</p>
+<p>Although <code>plot()</code> takes a variety of parameters to customize your plot, users familiar with matplotlib will feel right at home with the <code>AxesSubPlot</code> object.</p>
+<div class="code"><pre><span class="n">ax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Min and Max Temperatures"</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">min_temp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">"red"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Temperature (F)"</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>&lt;matplotlib.text.Text at 0x678da10&gt;
+</pre></div>
+
+
+<p><img alt="" src="../assets/img/gen_SU4pcIQnwZbCbqu1QEutH7lRb0.png"></p>
+<h2 id="getting-data-out">Getting Data Out</h2>
+<p>Writing data out in pandas is as easy as getting data in. To save our DataFrame out to a new csv file, we can just do this:</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"data/weather-mod.csv"</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Want to make that tab separated instead? No problem.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"data/weather-mod.tsv"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There's also support for <a href="http://pandas.pydata.org/pandas-docs/stable/io.html#excel-files">reading and writing Excel files</a>, if you need it.</p>
+<h2 id="miscellanea">Miscellanea</h2>
+<p>We've only covered a small fraction of the pandas library here.
+Before I wrap up, however, there are a few miscellaneous tips I'd like to go over.</p>
+<p>First, it can be confusing to know when an operation will modify a DataFrame and when it will return a copy to you.
+Pandas behavior here is entirely dictated by NumPy, and some situations are unintuitive.</p>
+<p>For example, what do you think will happen here?</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">row</span><span class="p">[</span><span class="s">"max_temp"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    56
+2012-03-11    67
+2012-03-12    71
+2012-03-13    76
+2012-03-14    80
+Freq: D, Name: max_temp
+</pre></div>
+
+
+<p>Contrary to what you might expect, modifying <code>row</code> did <strong>not</strong> modify <code>data</code>!
+This is because <code>row</code> is a copy, and does not point back to the original DataFrame.</p>
+<p>Here's the right way to do it:</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s">"max_temp"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nb">any</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">max_temp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c"># Any rows with max_temp not equal to zero?</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>False
+</pre></div>
+
+
+<p>Just to make you even more confused, this also <strong>doesn't</strong> work:</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="s">"max_temp"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">data</span><span class="o">.</span><span class="n">max_temp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    0
+2012-03-11    0
+2012-03-12    0
+2012-03-13    0
+2012-03-14    0
+Freq: D, Name: max_temp
+</pre></div>
+
+
+<p>When using <code>apply()</code>, the default behavior is to go over columns.</p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>max_temp                  max_temp
+mean_temp                mean_temp
+min_temp                  min_temp
+max_dew                    max_dew
+mean_dew                  mean_dew
+min_dew                    min_dew
+max_humidity          max_humidity
+mean_humidity        mean_humidity
+min_humidity          min_humidity
+max_pressure          max_pressure
+mean_pressure        mean_pressure
+min_pressure          min_pressure
+max_visibilty        max_visibilty
+mean_visibility    mean_visibility
+min_visibility      min_visibility
+max_wind                  max_wind
+mean_wind                mean_wind
+min_wind                  min_wind
+precipitation        precipitation
+cloud_cover            cloud_cover
+events                      events
+wind_dir                  wind_dir
+rain                          rain
+thunderstorm          thunderstorm
+fog                            fog
+snow                          snow
+</pre></div>
+
+
+<p>You can make <code>apply()</code> go over rows by passing <code>axis=1</code></p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s">"max_pressure"</span><span class="p">]</span> <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="s">"min_pressure"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>date
+2012-03-10    0.19
+2012-03-11    0.24
+2012-03-12    0.25
+2012-03-13    0.15
+2012-03-14    0.11
+2012-03-15    0.11
+2012-03-16    0.07
+2012-03-17    0.11
+2012-03-18    0.12
+2012-03-19    0.11
+2012-03-20    0.10
+2012-03-21    0.12
+2012-03-22    0.10
+2012-03-23    0.27
+2012-03-24    0.09
+...
+2013-02-24    0.15
+2013-02-25    0.33
+2013-02-26    0.40
+2013-02-27    0.23
+2013-02-28    0.28
+2013-03-01    0.11
+2013-03-02    0.11
+2013-03-03    0.08
+2013-03-04    0.20
+2013-03-05    0.26
+2013-03-06    0.53
+2013-03-07    0.13
+2013-03-08    0.13
+2013-03-09    0.36
+2013-03-10    0.05
+Length: 366
+</pre></div>
+
+
+<p>When you call <code>drop()</code>, though, it's flipped. To drop a column, you need to pass <code>axis=1</code></p>
+<div class="code"><pre><span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">"events"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<p><strong>Output</strong>:</p>
+<div class="code"><pre>Index([max_temp, mean_temp, min_temp, max_dew, mean_dew, min_dew,
+       max_humidity, mean_humidity, min_humidity, max_pressure,
+       mean_pressure, min_pressure, max_visibilty, mean_visibility,
+       min_visibility, max_wind, mean_wind, min_wind, precipitation,
+       cloud_cover, wind_dir, rain, thunderstorm, fog, snow], dtype=object)
+</pre></div></div>
+    
+    <ul class="pager"><li class="previous">
+            <a href="python-recipes.html">← Previous post</a>
+        </li>
+    </ul></div>
+
+            <!--End of body content-->
+            <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        </div>
+        <div class="span2" id="sidebar">
+            <!--Sidebar content-->
+            <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
+            <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
+            <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
+            <li class="divider"> </li>
+            <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>
+            <li><a href="../archive.html"><i class="icon-briefcase"></i> Archive</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://github.com/synesthesiam">My Github</a></li>
+            <li><a href="https://github.com/synesthesiam/artwork">Artwork</a></li>
+
+            </ul><div style="padding-left: 15px;">
+                
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/ar/">
+<img alt="Creative Commons License BY-NC-SA" style="border-width:0; margin-bottom:12px;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>
+            </div>
+            <!--End of sidebar content-->
+        </div>
+    
+    
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></div></div></div></div></body></html>

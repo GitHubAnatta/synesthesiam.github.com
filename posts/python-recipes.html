@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="title" content="Python Recipes | synesthesiam"><meta name="description" content=""><meta name="author" content="Michael Hansen"><title>Python Recipes | synesthesiam</title><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><!-- Le styles --><link href="../assets/css/bootstrap.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/slides.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script src="../assets/js/slides.min.jquery.js" type="text/javascript"></script><!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
+<div class="container-fluid" id="container">
+    <div class="row-fluid" id="titlerow">
+    <div class="span12" id="titlecolumn">
+    <!-- Banner-like substance !-->
+        <div id="titlelogo">
+            <a href="../" title="synesthesiam">
+                <img src="../assets/img/mike_head.png" alt="logo"></a>
+        </div>
+        <div id="titlebox">
+            <h1 id="blog-title">
+                <a href="../" title="synesthesiam">synesthesiam<br><small>Michael Hansen</small>
+                </a>
+            </h1>
+            
+            
+        </div>
+        <hr style="clear: both;" class="light"><!-- End of banner-like substance !--><div class="row-fluid" id="contentrow">
+        <div class="span10" id="contentcolumn">
+            <!--Body content-->
+            
+    <div class="postbox">
+    
+    <h1>Python Recipes</h1>
+
+    <small>
+        Posted: 2013-03-02
+        
+          |  More posts about
+            <a class="tag" href="../categories/python.html"><span class="badge badge-info">python</span></a>
+            <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
+
+    </small>
+    <br><br><div><p>From time to time, I come across or come up with interesting ways to solve problems in Python. To avoid forgetting them, I plan to update this post as I add more recipes to my collection.</p>
+<p>If you know of a better way to do something, let me know!</p>
+<!-- TEASER_END -->
+
+<h3>Convert a string to '\n' newlines</h3>
+<p>When reading a file, Python can automatically convert line endings to <code>\n</code> (called <a href="http://www.python.org/dev/peps/pep-0278/">universal newlines</a>). What if you have a string, though, and want to ensure that it has the right line endings?</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="n">s_before</span> <span class="o">=</span> <span class="s">"I'm</span><span class="se">\r\n</span><span class="s">from</span><span class="se">\r\n</span><span class="s">Windows</span><span class="se">\r\n</span><span class="s">"</span>
+<span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">s_before</span><span class="p">)</span>
+<span class="c"># ['I', "'", 'm', '\r', '\n', 'f', 'r', 'o', 'm', '\r', '\n', 'W', 'i', 'n', 'd', 'o', 'w', 's', '\r', '\n']</span>
+
+<span class="n">s_after</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">s_before</span><span class="p">),</span> <span class="n">newline</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">s_after</span><span class="p">)</span>
+<span class="c"># [u'I', u"'", u'm', u'\n', u'f', u'r', u'o', u'm', u'\n', u'W', u'i', u'n', u'd', u'o', u'w', u's', u'\n']</span>
+</pre></div>
+
+
+<p>This uses the <a href="http://docs.python.org/2/library/io.html#io.StringIO">StringIO</a> class from the <a href="http://docs.python.org/2/library/io.html">io</a> module (<em>not</em> the <code>StringIO</code> module), which requires you to convert your string to Unicode. The <code>newline</code> keyword argument controls how newline characters are translated (<code>None</code> enables universal newline mode).</p>
+<h3>Create a temporary file with a specific extension</h3>
+<p>Some libraries require files to have a specific extension, which can be a pain when your temporary file is named something like <code>tmp4HknTk</code>. <a href="http://docs.python.org/2/library/tempfile.html#tempfile.NamedTemporaryFile">NamedTemporaryFile</a> to the rescue!</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="n">EXTENSION</span> <span class="o">=</span> <span class="s">".txt"</span>
+
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">EXTENSION</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">"Temporary file path:"</span><span class="p">,</span> <span class="n">tmp</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"Hello World</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c"># Temporary file is automatically deleted</span>
+</pre></div>
+
+
+<h3>Generate a random string with letters and numbers</h3>
+<p>Not terribly complicated, but this is a good example of elegance in Python. This function will generate a random string with (ASCII) uppercase/lowercase letters and numbers.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
+<span class="k">def</span> <span class="nf">random_string</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">length</span><span class="p">))</span>
+
+<span class="k">print</span> <span class="n">random_string</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Run an external command</h3>
+<p>The <a href="http://docs.python.org/2/library/subprocess.html">subprocess</a> module has a lot of nice stuff for running external commands. The two functions I use all the time are <a href="http://docs.python.org/2/library/subprocess.html#subprocess.check_call">check_call</a> and <a href="http://docs.python.org/2/library/subprocess.html#subprocess.check_output">check_output</a>.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="c"># Raises an exception if the command fails (non-zero exit code)</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="s">"touch"</span><span class="p">,</span> <span class="s">"/path/to/file"</span><span class="p">])</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s">"ls"</span><span class="p">,</span> <span class="s">"-l"</span><span class="p">,</span> <span class="s">"-a"</span><span class="p">])</span>
+<span class="k">print</span> <span class="n">result</span>
+</pre></div>
+
+
+<p>I used this recently to import a SQL file into MySQL:</p>
+<div class="code"><pre><span class="c"># mysql -u $user -p$password $db_name &lt; $sql_path</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sql_path</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="s">"mysql"</span><span class="p">,</span> <span class="s">"-u"</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="s">"-p{0}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">password</span><span class="p">),</span> <span class="n">db_name</span><span class="p">],</span> <span class="n">stdin</span><span class="o">=</span><span class="n">sql_file</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Get all files in a directory by extension</h3>
+<p>When in doubt, <a href="http://docs.python.org/2/library/glob.html">glob</a> it!</p>
+<div class="code"><pre><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="c"># All Python files in the current directory</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">"*.py"</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">path</span>
+
+<span class="c"># All Python files one directory down</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s">"*/*.py"</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">path</span>
+</pre></div>
+
+
+<h3>Get a file name (without extension) from a full path</h3>
+<p>If you have a full path but just want the file name (without the extension), use this function. There's probably already a function to do this, but I have yet to find it.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="n">get_name</span><span class="p">(</span><span class="s">"/path/to/a/file.extension"</span><span class="p">)</span>  <span class="c"># file</span>
+</pre></div>
+
+
+<h3>Sort a list by values in a dictionary</h3>
+<p>Let's say you have a dictionary and you want to sort the keys by the values. Easy as pie!</p>
+<div class="code"><pre><span class="n">d</span> <span class="o">=</span> <span class="p">{</span> <span class="s">"a"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="k">print</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>                      <span class="c"># a, b, c</span>
+<span class="k">print</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c"># b, c, a</span>
+</pre></div>
+
+
+<h3>Verify that a list contains no duplicates</h3>
+<div class="code"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+
+<h3>Handle command-line arguments</h3>
+<p>Replace this:</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">"Usage: my_script.py arg1 arg2 [--flag]"</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">arg1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">arg2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="bp">True</span> <span class="k">if</span> <span class="s">"--flag"</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">else</span> <span class="bp">False</span>
+    <span class="k">print</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">flag</span>
+</pre></div>
+
+
+<p>with this:</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">"My Awesome Script"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"arg1"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"The first argument"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"arg2"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"The second argument"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"--flag"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">"store_true"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"An optional flag"</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="k">print</span> <span class="n">args</span><span class="o">.</span><span class="n">arg1</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">arg2</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">flag</span>
+</pre></div>
+
+
+<p>With <a href="http://docs.python.org/2.7/library/argparse.html">argparse</a>, you get a lot for free: argument type checking, flags in any position (<code>arg1 --flag arg2</code> works just as well as <code>arg1 arg2 --flag</code>), and a help screen (pass <code>-h</code> to see). Adding flags with short names and arguments is also a piece of cake:</p>
+<div class="code"><pre><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"-c"</span><span class="p">,</span> <span class="s">"--count"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">"Count of something"</span><span class="p">)</span>
+<span class="c"># ...</span>
+<span class="k">print</span> <span class="n">args</span><span class="o">.</span><span class="n">count</span>
+</pre></div>
+
+
+<h3>Import a library from parent directory</h3>
+<p>Maybe it's evidence of a bad design, but on a few occasions I've needed to import a library script from one directory up. It's easy to import a script from a child directory, but a parent directory takes a little more work.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="c"># Add parent directory to path    </span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">".."</span><span class="p">)))</span>
+
+<span class="c"># Now you can import scripts in the parent directory</span>
+<span class="kn">from</span> <span class="nn">parent_script</span> <span class="kn">import</span> <span class="n">magic_function</span>
+</pre></div>
+
+
+<h3>Read the first file in a zip archive</h3>
+<p>I have some large CSV files that I like to keep zipped up. Not all libraries support reading zipped CSV files, but it's easy enough to use the <a href="http://docs.python.org/2/library/zipfile">zipfile</a> module as an intermediary.</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">def</span> <span class="nf">from_zip</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">with</span> <span class="n">from_zip</span><span class="p">(</span><span class="s">"/path/to/file.zip"</span><span class="p">)</span> <span class="k">as</span> <span class="n">my_file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">my_file</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">line</span>
+</pre></div>
+
+
+<p>Here's a little function to zip up a file and then delete the original:</p>
+<div class="code"><pre><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">zipfile</span>
+<span class="k">def</span> <span class="nf">zip_delete</span><span class="p">(</span><span class="n">in_path</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">,</span> <span class="s">"w"</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_zip</span><span class="p">:</span>
+        <span class="n">new_zip</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">in_path</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">in_path</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Recursively match a file name filter (e.g., <code>*.mp3</code>):
+    :::python
+    import fnmatch, os
+    def globr(pattern, dir="."):
+        for root, _, file_names in os.walk(dir):
+            for f_name in file_names:
+                yield os.path.join(root, f_name)</p></div>
+    
+    <ul class="pager"><li class="previous">
+            <a href="modeling-how-programmers-read-code.html">← Previous post</a>
+        </li>
+        <li class="next">
+            <a href="an-introduction-to-pandas.html">Next post →</a>
+        </li>
+    </ul></div>
+
+            <!--End of body content-->
+            <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        </div>
+        <div class="span2" id="sidebar">
+            <!--Sidebar content-->
+            <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
+            <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
+            <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
+            <li class="divider"> </li>
+            <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>
+            <li><a href="../archive.html"><i class="icon-briefcase"></i> Archive</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://github.com/synesthesiam">My Github</a></li>
+            <li><a href="https://github.com/synesthesiam/artwork">Artwork</a></li>
+
+            </ul><div style="padding-left: 15px;">
+                
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/ar/">
+<img alt="Creative Commons License BY-NC-SA" style="border-width:0; margin-bottom:12px;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>
+            </div>
+            <!--End of sidebar content-->
+        </div>
+    
+    
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></div></div></div></div></body></html>

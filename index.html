@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="title" content="synesthesiam | synesthesiam"><meta name="description" content=""><meta name="author" content="Michael Hansen"><title>synesthesiam | synesthesiam</title><link rel="shortcut icon" type="image/x-icon" href="favicon.ico"><!-- Le styles --><link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css"><link href="assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"><link href="assets/css/rst.css" rel="stylesheet" type="text/css"><link href="assets/css/code.css" rel="stylesheet" type="text/css"><link href="assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="assets/css/slides.css" rel="stylesheet" type="text/css"><link href="assets/css/theme.css" rel="stylesheet" type="text/css"><link href="assets/css/custom.css" rel="stylesheet" type="text/css"><script src="assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script src="assets/js/slides.min.jquery.js" type="text/javascript"></script><!-- Le HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml"></head><body>
+<div class="container-fluid" id="container">
+    <div class="row-fluid" id="titlerow">
+    <div class="span12" id="titlecolumn">
+    <!-- Banner-like substance !-->
+        <div id="titlelogo">
+            <a href="." title="synesthesiam">
+                <img src="assets/img/mike_head.png" alt="logo"></a>
+        </div>
+        <div id="titlebox">
+            <h1 id="blog-title">
+                <a href="." title="synesthesiam">synesthesiam<br><small>Michael Hansen</small>
+                </a>
+            </h1>
+            
+            
+        </div>
+        <hr style="clear: both;" class="light"><!-- End of banner-like substance !--><div class="row-fluid" id="contentrow">
+        <div class="span10" id="contentcolumn">
+            <!--Body content-->
+            
+        <div class="postbox">
+        <h1><a href="posts/an-introduction-to-pandas.html">An Introduction to Pandas</a>
+        <br><small>
+             Posted: 2013-04-23
+        </small></h1>
+        <p>When dealing with numeric matrices and vectors in Python, <a href="http://www.numpy.org/">NumPy</a> makes life a lot easier.
+For more complex data, however, it leaves a lot to be desired.
+If you're used to working with <a href="http://www.r-tutor.com/r-introduction/data-frame">data frames in R</a>, doing data analysis directly with NumPy feels like a step back.</p>
+<p>Fortunately, some nice folks have written the <a href="http://pandas.pydata.org/">Python Data Analysis Library</a> (a.k.a. pandas).
+Pandas provides an R-like <code>DataFrame</code>, produces high quality plots with <a href="http://matplotlib.org/">matplotlib</a>, and integrates nicely with other libraries that expect NumPy arrays.</p>
+<p>In this tutorial, we'll go through the basics of pandas using a year's worth of weather data from <a href="http://www.wunderground.com/">Weather Underground</a>.
+Pandas has a <strong>lot</strong> of functionality, so we'll only be able to cover a small fraction of what you can do.
+Check out the (very readable) <a href="http://pandas.pydata.org/pandas-docs/stable/">pandas docs</a> if you want to learn more.</p>
+<p><a href="posts/an-introduction-to-pandas.html">Read more...</a></p>
+        
+    <p>
+
+        </p></div>
+        <div class="postbox">
+        <h1><a href="posts/python-recipes.html">Python Recipes</a>
+        <br><small>
+             Posted: 2013-03-02
+        </small></h1>
+        <p>From time to time, I come across or come up with interesting ways to solve problems in Python. To avoid forgetting them, I plan to update this post as I add more recipes to my collection.</p>
+<p>If you know of a better way to do something, let me know!</p>
+<p><a href="posts/python-recipes.html">Read more...</a></p>
+        
+    <p>
+
+        </p></div>
+        <div class="postbox">
+        <h1><a href="posts/modeling-how-programmers-read-code.html">Modeling How Programmers Read Code</a>
+        <br><small>
+             Posted: 2013-01-27
+        </small></h1>
+        <p>As my fellow Ph.D. student <a href="http://blog.theincredibleholk.org/blog/2012/12/18/how-do-we-read-code">Eric Holk talked about recently in his blog</a>, I've been running eye-tracking experiments with programmers of different experience levels. In the experiment, a programmer is tasked with predicting the output of 10 short Python programs. A <a href="http://www.tobii.com/en/eye-tracking-research/global/products/hardware/tobii-tx300-eye-tracker">Tobii TX300 eye tracker</a> keeps track of their eyes at 300 Hz, allowing me to see where they're spending their time.</p>
+<p><a href="posts/modeling-how-programmers-read-code.html">Read more...</a></p>
+        
+    <p>
+
+        </p></div>
+        <div class="postbox">
+        <h1><a href="posts/matplotlib-and-numpy-double-trouble.html">matplotlib and numpy: Double Trouble</a>
+        <br><small>
+             Posted: 2012-05-19
+        </small></h1>
+        <p>[<a href="assets/weather.zip">Code and Data</a>]</p>
+<p>For this tutorial, we'll be plotting some weather data from a site call <a href="http://www.wunderground.com/">Weather Underground</a>. You can download temperature readings and weather events for your local area in a comma-separated file.</p>
+<p>I've put weather data for Bloomington, IN in a file called <tt>weather.csv</tt>. Each row is one day, and there are columns for min/mean/max temperature, dew point, wind speed, etc. We'll be plotting temperature and weather event data (e.g., rain, snow).</p>
+<p><a href="posts/matplotlib-and-numpy-double-trouble.html">Read more...</a></p>
+        
+    <p>
+
+        </p></div>
+        <div class="postbox">
+        <h1><a href="posts/an-exercise-with-functions-and-plotting.html">An Exercise with Functions and Plotting</a>
+        <br><small>
+             Posted: 2012-05-11
+        </small></h1>
+        <p>[<a href="assets/functions_example.zip">Code and Data</a>]</p>
+<p>Let's say you have a text file called <tt>workout.csv</tt> that contains information about your workouts for the month of March:</p>
+<div class="code"><pre># date, kind of workout, distance (miles), time (min)
+"2012, Mar-01", run, 2, 25
+"2012, Mar-03", bike, 10, 55
+"2012, Mar-06", bike, 5, 20
+"2012, Mar-09", run, 3, 42
+"2012, Mar-10", skateboarding, 2, 10
+
+# Broke my leg :(
+
+"2012, Mar-11", Wii, 0, 60
+"2012, Mar-12", Wii, 0, 60
+"2012, Mar-13", Wii, 0, 60
+"2012, Mar-14", Wii, 0, 60
+</pre></div>
+
+
+<p>It's a common-separated value (CSV) file, but contains comments and blank lines. The first line (a comment) describes the fields in this file, which are (from left to right) the date of your workout, the kind of workout, how many miles you traveled, and how many minutes you spent (note: I didn't actually break my leg, it's just an example!).</p>
+<p>Our goal will be to read this data into Python and plot a graph with the day of the month on the x-axis and the time worked out on the y-axis. Let's get started.</p>
+<p><a href="posts/an-exercise-with-functions-and-plotting.html">Read more...</a></p>
+        
+    <p>
+
+        </p></div>
+    
+<div>
+<ul class="pager"></ul></div>
+
+    
+
+
+            <!--End of body content-->
+            <hr class="light"><small>Contents © 2013 <a href="pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        </div>
+        <div class="span2" id="sidebar">
+            <!--Sidebar content-->
+            <ul class="nav nav-list"><li class="active"><a href="#"><i class="icon-home"></i> Home</a></li>
+            <li><a href="pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
+            <li><a href="pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
+            <li class="divider"> </li>
+            <li><a href="categories/index.html"><i class="icon-tag"></i> Tags</a></li>
+            <li><a href="archive.html"><i class="icon-briefcase"></i> Archive</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://github.com/synesthesiam">My Github</a></li>
+            <li><a href="https://github.com/synesthesiam/artwork">Artwork</a></li>
+
+            </ul><div style="padding-left: 15px;">
+                
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/ar/">
+<img alt="Creative Commons License BY-NC-SA" style="border-width:0; margin-bottom:12px;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>
+            </div>
+            <!--End of sidebar content-->
+        </div>
+    
+    
+    <script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></div></div></div></div></body></html>

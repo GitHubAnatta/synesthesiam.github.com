@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>synesthesiam</title><link>http://synesthesiam.com</link><description></description><lastBuildDate>Wed, 24 Apr 2013 01:22:24 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>An Introduction to Pandas</title><link>http://synesthesiam.com/posts/an-introduction-to-pandas.html</link><description>&lt;p&gt;When dealing with numeric matrices and vectors in Python, &lt;a href="http://www.numpy.org/"&gt;NumPy&lt;/a&gt; makes life a lot easier.
+For more complex data, however, it leaves a lot to be desired.
+If you're used to working with &lt;a href="http://www.r-tutor.com/r-introduction/data-frame"&gt;data frames in R&lt;/a&gt;, doing data analysis directly with NumPy feels like a step back.&lt;/p&gt;
+&lt;p&gt;Fortunately, some nice folks have written the &lt;a href="http://pandas.pydata.org/"&gt;Python Data Analysis Library&lt;/a&gt; (a.k.a. pandas).
+Pandas provides an R-like &lt;code&gt;DataFrame&lt;/code&gt;, produces high quality plots with &lt;a href="http://matplotlib.org/"&gt;matplotlib&lt;/a&gt;, and integrates nicely with other libraries that expect NumPy arrays.&lt;/p&gt;
+&lt;p&gt;In this tutorial, we'll go through the basics of pandas using a year's worth of weather data from &lt;a href="http://www.wunderground.com/"&gt;Weather Underground&lt;/a&gt;.
+Pandas has a &lt;strong&gt;lot&lt;/strong&gt; of functionality, so we'll only be able to cover a small fraction of what you can do.
+Check out the (very readable) &lt;a href="http://pandas.pydata.org/pandas-docs/stable/"&gt;pandas docs&lt;/a&gt; if you want to learn more.&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/an-introduction-to-pandas.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/an-introduction-to-pandas.html</guid><pubDate>Tue, 23 Apr 2013 12:08:07 GMT</pubDate></item><item><title>Python Recipes</title><link>http://synesthesiam.com/posts/python-recipes.html</link><description>&lt;p&gt;From time to time, I come across or come up with interesting ways to solve problems in Python. To avoid forgetting them, I plan to update this post as I add more recipes to my collection.&lt;/p&gt;
+&lt;p&gt;If you know of a better way to do something, let me know!&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/python-recipes.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/python-recipes.html</guid><pubDate>Sat, 02 Mar 2013 10:41:25 GMT</pubDate></item><item><title>Modeling How Programmers Read Code</title><link>http://synesthesiam.com/posts/modeling-how-programmers-read-code.html</link><description>&lt;p&gt;As my fellow Ph.D. student &lt;a href="http://blog.theincredibleholk.org/blog/2012/12/18/how-do-we-read-code"&gt;Eric Holk talked about recently in his blog&lt;/a&gt;, I've been running eye-tracking experiments with programmers of different experience levels. In the experiment, a programmer is tasked with predicting the output of 10 short Python programs. A &lt;a href="http://www.tobii.com/en/eye-tracking-research/global/products/hardware/tobii-tx300-eye-tracker"&gt;Tobii TX300 eye tracker&lt;/a&gt; keeps track of their eyes at 300 Hz, allowing me to see where they're spending their time.&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/modeling-how-programmers-read-code.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/modeling-how-programmers-read-code.html</guid><pubDate>Sun, 27 Jan 2013 15:52:13 GMT</pubDate></item><item><title>matplotlib and numpy: Double Trouble</title><link>http://synesthesiam.com/posts/matplotlib-and-numpy-double-trouble.html</link><description>&lt;p&gt;[&lt;a href="/assets/weather.zip"&gt;Code and Data&lt;/a&gt;]&lt;/p&gt;
+&lt;p&gt;For this tutorial, we'll be plotting some weather data from a site call &lt;a href="http://www.wunderground.com/"&gt;Weather Underground&lt;/a&gt;. You can download temperature readings and weather events for your local area in a comma-separated file.&lt;/p&gt;
+&lt;p&gt;I've put weather data for Bloomington, IN in a file called &lt;tt&gt;weather.csv&lt;/tt&gt;. Each row is one day, and there are columns for min/mean/max temperature, dew point, wind speed, etc. We'll be plotting temperature and weather event data (e.g., rain, snow).&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/matplotlib-and-numpy-double-trouble.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/matplotlib-and-numpy-double-trouble.html</guid><pubDate>Sat, 19 May 2012 13:05:18 GMT</pubDate></item><item><title>An Exercise with Functions and Plotting</title><link>http://synesthesiam.com/posts/an-exercise-with-functions-and-plotting.html</link><description>&lt;p&gt;[&lt;a href="/assets/functions_example.zip"&gt;Code and Data&lt;/a&gt;]&lt;/p&gt;
+&lt;p&gt;Let's say you have a text file called &lt;tt&gt;workout.csv&lt;/tt&gt; that contains information about your workouts for the month of March:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre&gt;# date, kind of workout, distance (miles), time (min)
+"2012, Mar-01", run, 2, 25
+"2012, Mar-03", bike, 10, 55
+"2012, Mar-06", bike, 5, 20
+"2012, Mar-09", run, 3, 42
+"2012, Mar-10", skateboarding, 2, 10
+
+# Broke my leg :(
+
+"2012, Mar-11", Wii, 0, 60
+"2012, Mar-12", Wii, 0, 60
+"2012, Mar-13", Wii, 0, 60
+"2012, Mar-14", Wii, 0, 60
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It's a common-separated value (CSV) file, but contains comments and blank lines. The first line (a comment) describes the fields in this file, which are (from left to right) the date of your workout, the kind of workout, how many miles you traveled, and how many minutes you spent (note: I didn't actually break my leg, it's just an example!).&lt;/p&gt;
+&lt;p&gt;Our goal will be to read this data into Python and plot a graph with the day of the month on the x-axis and the time worked out on the y-axis. Let's get started.&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/an-exercise-with-functions-and-plotting.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/an-exercise-with-functions-and-plotting.html</guid><pubDate>Fri, 11 May 2012 13:05:18 GMT</pubDate></item></channel></rss>
