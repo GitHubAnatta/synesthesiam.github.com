@@ -2,7 +2,7 @@
 .. title: An Introduction to Pandas
 .. slug: an-introduction-to-pandas
 .. date: 2013/04/23 12:08:07
-.. tags: 
+.. tags: programming,python
 .. link: 
 .. description: 
 -->
