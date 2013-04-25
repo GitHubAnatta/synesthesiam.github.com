@@ -20,7 +20,9 @@ I am working with <a href="http://www.cs.indiana.edu/~lums">Andrew Lumsdaine</a>
 We would like to develop <a href="http://act-r.psy.cmu.edu/about">a computation cognitive model</a> of a programmer that can "read" simple programs and guess their output. With such a model, we could predict how complex a program appears to a programmer by feeding it code and measuring aspects of the model's behavior (e.g., speed and correctness). Programmers of different experience levels could be simulated by having models with different long-term memory contents, such as schemas for common operations.
 </p>
 <p>
-Our recent <a href="../posts/modeling-how-programmers-read-code.html">eye-tracking experiment</a> made the front page of <a href="http://developers.slashdot.org/story/12/12/19/1711225/how-experienced-and-novice-programmers-see-code">Slashdot</a> and <a href="http://news.ycombinator.com/item?id=4940952">Hacker News</a>!
+Our [Onward! workshop paper](http://dl.acm.org/citation.cfm?id=2384596) describes the grand vision. We have [a paper available on arXiv](http://arxiv.org/abs/1304.5257) with experimental results. You can also read about our <a href="../posts/modeling-how-programmers-read-code.html">recent eye-tracking experiment</a>, which we're in the process of writing up.
+
+ <!--made the front page of <a href="http://developers.slashdot.org/story/12/12/19/1711225/how-experienced-and-novice-programmers-see-code">Slashdot</a> and <a href="http://news.ycombinator.com/item?id=4940952">Hacker News</a>!-->
 </p>
 </div>
 </div>
@@ -83,7 +85,9 @@ Each player has a unique avatar like <img src="../assets/img/player_1.png" alt="
 </div>
 <div class="row-fluid spacer">
 <p>
-We have run experiments for a variety of conditions which vary the type of goal (simple vs. conjunctive) and how players are assigned grid cells (random, clustered, anti-clustered). By reserving certain grid cells, we have also created a version of the game where players find solutions to the <a href="http://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman Problem</a>. You can see real-time recordings from many of our experiments at the <a href="http://synesthesiam.com/pixel">Pixel website</a>.
+We have run experiments for a variety of conditions which vary the type of goal (simple vs. conjunctive) and how players are assigned grid cells (random, clustered, anti-clustered). By reserving certain grid cells, we have also created a version of the game where players find solutions to the <a href="http://en.wikipedia.org/wiki/Travelling_salesman_problem">Travelling Salesman Problem</a>. 
+
+<!--You can see real-time recordings from many of our experiments at the <a href="http://synesthesiam.com/pixel">Pixel website</a>.-->
 </p>
 </div>
 <br />
@@ -105,6 +109,8 @@ Many different settings are available such as grouping players into teams, placi
 </div>
 <div class="row-fluid spacer">
 <p>
-We have used Flatland to model a variety of group task domains including sorting (by color, team name, etc.), panic scenarios (i.e., obstacles are present and someone yells "fire!"), the <a href="http://en.wikipedia.org/wiki/Eight_queens_puzzle">N-Queens problem</a>, and a handful of predator/prey scenarios. You can see real-time recordings of many of our experiments at the <a href="http://synesthesiam.com/flatland">Flatland website</a>.
+We have used Flatland to model a variety of group task domains including sorting (by color, team name, etc.), panic scenarios (i.e., obstacles are present and someone yells "fire!"), the <a href="http://en.wikipedia.org/wiki/Eight_queens_puzzle">N-Queens problem</a>, and a handful of predator/prey scenarios. 
+
+<!--You can see real-time recordings of many of our experiments at the <a href="http://synesthesiam.com/flatland">Flatland website</a>.-->
 </p>
 </div>

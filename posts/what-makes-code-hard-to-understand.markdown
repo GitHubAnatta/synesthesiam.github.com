@@ -7,6 +7,8 @@
 .. description: 
 -->
 
+[[arXiv paper](http://arxiv.org/abs/1304.5257)]
+
 What factors impact the comprehensibility of code? Psychology of programming
 research suggests that expectation-congruent programs should take less time to
 understand and be less prone to errors.  In this blog post, I'll describe an
@@ -47,8 +49,9 @@ offering for surveys!
 The experiment consisted of a pre-test survey, ten trials (one program each),
 and a post-test survey. The pre-test survey gathered information about the
 participant's age, gender, education, and experience. Participants were then
-asked to predict the printed output of ten short Python programs, one version
-randomly chosen from each of ten program types.
+asked to predict the printed output of [ten short Python
+programs](../pages/eyecode-programs.html), one version randomly chosen from
+each of ten program types.
 
 Here's a shot of the main screen that participants used to drill down into each
 trial:
@@ -67,49 +70,48 @@ error-free output, participants were not informed of this fact beforehand. The
 post-test survey gauged a participant's confidence in their answers and the
 perceived difficulty of the task.
 
-## Results
+## The Data
 
 We collected a total of 1,602 trials from the 162 participants starting
 November 20, 2012 and ending January 19, 2013. Trials were graded
 semi-automatically using a custom grading script ([available
 here]([https://github.com/synesthesiam/eyecode-tools)). Grades were assigned like this:
 
-* Perfect (10 points) - response exactly matched the program's output (about
-  63% of trials)
-* Correct (7-9 points) - response had the right numbers or letters, but
-  incorrect formatting -- e.g., wrong whitespace, commas, brackets.
-* Common error (2-4 points) - response was incorrect, but given by at least 3
-  other participants
+* **Perfect (10 points)** - response exactly matched the program's output
+  (about 63% of trials)
+* **Correct (7-9 points)** - response had the right numbers or letters, but
+  incorrect formatting (e.g., wrong whitespace, commas, brackets)
+* **Common error (2-4 points)** - response was incorrect, but given by at least
+  3 other participants
 
-All other responses were graded manually. Any trial that was restarted was
-discarded (i.e., the participant reloaded the web page or fiddled with the URL
-to try and change their answer).
+All other responses were graded manually (about 12% of the trials). Any trial
+that was restarted was discarde; this only happened if the participant reloaded
+the web page or fiddled with the URL to try and change their answer.
 
-We had a total of 25 Python programs in 10 different categories. These programs
-were designed to be understandable by a wide audience, and therefore did not
-touch on Python features outside of a first or second introductory programming
-course. The programs ranged in size from 3 to 24 lines of code (LOC).
-Additional metrics, like [cyclomatic
-complexity](http://en.wikipedia.org/wiki/Cyclomatic_complexity) and [Halstead
-volume](http://en.wikipedia.org/wiki/Halstead_complexity_measures), were
-computed with [PyMetrics](http://sourceforge.net/projects/pymetrics/).
+We had a total of [25 Python programs in 10 different
+categories](../pages/eyecode-programs.html). These programs were designed to be
+understandable by a wide audience, and therefore did not touch on Python
+features outside of a first or second introductory programming course. This
+worked out great our eye-tracking experiment, because we got a lot of examples
+of programmers successfully comprehending a program and predicting its output.
+The programs were probably a bit too easy for the Mechanical Turkers, though, as
+evidenced by the large number of perfect (62%). If we consider correct grades
+as well, that figure rises to 73%, making it tough to distinguish experienced
+from inexperienced programmers.
 
-### between (2 versions)
+ <!--The programs ranged in size from 3 to 24 lines of code (LOC).  Additional-->
+<!--metrics, like [cyclomatic-->
+<!--complexity](http://en.wikipedia.org/wiki/Cyclomatic_complexity) and [Halstead-->
+<!--volume](http://en.wikipedia.org/wiki/Halstead_complexity_measures), were-->
+<!--computed with [PyMetrics](http://sourceforge.net/projects/pymetrics/).-->
 
-### counting (2 versions)
+## Results
 
-### funcall (3 versions)
+Because this is a blog post, I'll only be discussing a few results. I'll also be
+sticking with graphical comparsions, and except for the use of correlation
+coefficients, try to avoid talking about stats. If you want all of that stuff,
+[the paper](http://arxiv.org/abs/1304.5257) is chock full of it!
 
-### initvar (3 versions)
+### Do more experienced programmers do better?
 
-### order (2 versions)
-
-### overload (3 versions)
-
-### partition (3 versions)
-
-### rectangle (3 versions)
-
-### scope (2 versions)
-
-### whitespace (2 versions)
+![Grades versus Python experience](../assets/img/grade_vs_exp-all-python_years.png)
