@@ -37,7 +37,7 @@
 <p>If you know of a better way to do something, let me know!</p>
 <!-- TEASER_END -->
 
-<h3>Convert a string to '\n' newlines</h3>
+<h2 id="convert-a-string-to-n-newlines">Convert a string to '\n' newlines</h2>
 <p>When reading a file, Python can automatically convert line endings to <code>\n</code> (called <a href="http://www.python.org/dev/peps/pep-0278/">universal newlines</a>). What if you have a string, though, and want to ensure that it has the right line endings?</p>
 <div class="code"><pre><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
 
@@ -52,7 +52,7 @@
 
 
 <p>This uses the <a href="http://docs.python.org/2/library/io.html#io.StringIO">StringIO</a> class from the <a href="http://docs.python.org/2/library/io.html">io</a> module (<em>not</em> the <code>StringIO</code> module), which requires you to convert your string to Unicode. The <code>newline</code> keyword argument controls how newline characters are translated (<code>None</code> enables universal newline mode).</p>
-<h3>Create a temporary file with a specific extension</h3>
+<h2 id="create-a-temporary-file-with-a-specific-extension">Create a temporary file with a specific extension</h2>
 <p>Some libraries require files to have a specific extension, which can be a pain when your temporary file is named something like <code>tmp4HknTk</code>. <a href="http://docs.python.org/2/library/tempfile.html#tempfile.NamedTemporaryFile">NamedTemporaryFile</a> to the rescue!</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="n">EXTENSION</span> <span class="o">=</span> <span class="s">".txt"</span>
@@ -65,7 +65,7 @@
 </pre></div>
 
 
-<h3>Generate a random string with letters and numbers</h3>
+<h2 id="generate-a-random-string-with-letters-and-numbers">Generate a random string with letters and numbers</h2>
 <p>Not terribly complicated, but this is a good example of elegance in Python. This function will generate a random string with (ASCII) uppercase/lowercase letters and numbers.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">string</span>
 <span class="k">def</span> <span class="nf">random_string</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
@@ -75,7 +75,7 @@
 </pre></div>
 
 
-<h3>Run an external command</h3>
+<h2 id="run-an-external-command">Run an external command</h2>
 <p>The <a href="http://docs.python.org/2/library/subprocess.html">subprocess</a> module has a lot of nice stuff for running external commands. The two functions I use all the time are <a href="http://docs.python.org/2/library/subprocess.html#subprocess.check_call">check_call</a> and <a href="http://docs.python.org/2/library/subprocess.html#subprocess.check_output">check_output</a>.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">subprocess</span>
 
@@ -94,7 +94,7 @@
 </pre></div>
 
 
-<h3>Get all files in a directory by extension</h3>
+<h2 id="get-all-files-in-a-directory-by-extension">Get all files in a directory by extension</h2>
 <p>When in doubt, <a href="http://docs.python.org/2/library/glob.html">glob</a> it!</p>
 <div class="code"><pre><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 
@@ -108,7 +108,7 @@
 </pre></div>
 
 
-<h3>Get a file name (without extension) from a full path</h3>
+<h2 id="get-a-file-name-without-extension-from-a-full-path">Get a file name (without extension) from a full path</h2>
 <p>If you have a full path but just want the file name (without the extension), use this function. There's probably already a function to do this, but I have yet to find it.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">os</span>
 <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -118,7 +118,7 @@
 </pre></div>
 
 
-<h3>Sort a list by values in a dictionary</h3>
+<h2 id="sort-a-list-by-values-in-a-dictionary">Sort a list by values in a dictionary</h2>
 <p>Let's say you have a dictionary and you want to sort the keys by the values. Easy as pie!</p>
 <div class="code"><pre><span class="n">d</span> <span class="o">=</span> <span class="p">{</span> <span class="s">"a"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
 <span class="k">print</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>                      <span class="c"># a, b, c</span>
@@ -126,13 +126,13 @@
 </pre></div>
 
 
-<h3>Verify that a list contains no duplicates</h3>
+<h2 id="verify-that-a-list-contains-no-duplicates">Verify that a list contains no duplicates</h2>
 <div class="code"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 
 
-<h3>Handle command-line arguments</h3>
+<h2 id="handle-command-line-arguments">Handle command-line arguments</h2>
 <p>Replace this:</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">sys</span>
 
@@ -169,7 +169,7 @@
 </pre></div>
 
 
-<h3>Import a library from parent directory</h3>
+<h2 id="import-a-library-from-parent-directory">Import a library from parent directory</h2>
 <p>Maybe it's evidence of a bad design, but on a few occasions I've needed to import a library script from one directory up. It's easy to import a script from a child directory, but a parent directory takes a little more work.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 
@@ -181,7 +181,7 @@
 </pre></div>
 
 
-<h3>Read the first file in a zip archive</h3>
+<h2 id="read-the-first-file-in-a-zip-archive">Read the first file in a zip archive</h2>
 <p>I have some large CSV files that I like to keep zipped up. Not all libraries support reading zipped CSV files, but it's easy enough to use the <a href="http://docs.python.org/2/library/zipfile">zipfile</a> module as an intermediary.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
 
@@ -218,7 +218,11 @@
         <li class="next">
             <a href="an-introduction-to-pandas.html">Next post →</a>
         </li>
-    </ul></div>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">var disqus_shortname="synesthesiam";var disqus_url="http://synesthesiam.com/posts/python-recipes.html";(function(){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src="http://"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)})();        </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
 
             <!--End of body content-->
             <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
@@ -228,6 +232,7 @@
             <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
             <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
             <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/fun-stuff.html"><i class="icon-gift"></i> Fun Stuff</a></li>
             <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
             <li class="divider"> </li>
             <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>

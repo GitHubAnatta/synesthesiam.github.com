@@ -52,6 +52,12 @@
 <li><a href="eyecode-programs.html#class">class</a></li>
 <li><a href="eyecode-programs.html#tuples">tuples</a></li>
 </ul></li>
+<li><a href="eyecode-programs.html#scope">scope</a><ul><li><a href="eyecode-programs.html#diffname">diffname</a></li>
+<li><a href="eyecode-programs.html#samename">samename</a></li>
+</ul></li>
+<li><a href="eyecode-programs.html#whitespace">whitespace</a><ul><li><a href="eyecode-programs.html#linedup">linedup</a></li>
+<li><a href="eyecode-programs.html#zigzag">zigzag</a></li>
+</ul></li>
 </ul></div>
 <h2 id="between">between</h2>
 <h3 id="functions">functions</h3>
@@ -358,6 +364,76 @@
 <span class="n">r1_xy_1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">r1_xy_2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">r1_area</span> <span class="o">=</span> <span class="n">area</span><span class="p">(</span><span class="n">r1_xy_1</span><span class="p">,</span> <span class="n">r1_xy</span>
+</pre></div>
+
+
+<h2 id="scope">scope</h2>
+<h3 id="diffname">diffname</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">add_1</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">twice</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">added</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">added</span>
+</pre></div>
+
+
+<h3 id="samename">samename</h3>
+<div class="code"><pre><span class="k">def</span> <span class="nf">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">):</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">added</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">twice</span><span class="p">(</span><span class="n">added</span><span class="p">):</span>
+    <span class="n">added</span> <span class="o">=</span> <span class="n">added</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">added</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">added</span>
+</pre></div>
+
+
+<h2 id="whitespace">whitespace</h2>
+<h3 id="linedup">linedup</h3>
+<div class="code"><pre><span class="n">intercept</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">slope</span>     <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">x_base</span>  <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_other</span> <span class="o">=</span> <span class="n">x_base</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">x_end</span>   <span class="o">=</span> <span class="n">x_base</span> <span class="o">+</span> <span class="n">x_other</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">y_base</span>  <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_base</span>  <span class="o">+</span> <span class="n">intercept</span>
+<span class="n">y_other</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_other</span> <span class="o">+</span> <span class="n">intercept</span>
+<span class="n">y_end</span>   <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_end</span>   <span class="o">+</span> <span class="n">intercept</span>
+
+<span class="k">print</span> <span class="n">x_base</span><span class="p">,</span>  <span class="n">y_base</span>
+<span class="k">print</span> <span class="n">x_other</span><span class="p">,</span> <span class="n">y_other</span>
+<span class="k">print</span> <span class="n">x_end</span><span class="p">,</span>   <span class="n">y_end</span>
+</pre></div>
+
+
+<h3 id="zigzag">zigzag</h3>
+<div class="code"><pre><span class="n">intercept</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">x_base</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">x_other</span> <span class="o">=</span> <span class="n">x_base</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">x_end</span> <span class="o">=</span> <span class="n">x_base</span> <span class="o">+</span> <span class="n">x_other</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">y_base</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_base</span> <span class="o">+</span> <span class="n">intercept</span>
+<span class="n">y_other</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_other</span> <span class="o">+</span> <span class="n">intercept</span>
+<span class="n">y_end</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">x_end</span> <span class="o">+</span> <span class="n">intercept</span>
+
+<span class="k">print</span> <span class="n">x_base</span><span class="p">,</span> <span class="n">y_base</span>
+<span class="k">print</span> <span class="n">x_other</span><span class="p">,</span> <span class="n">y_other</span>
+<span class="k">print</span> <span class="n">x_end</span><span class="p">,</span> <span class="n">y_end</span>
 </pre></div></div>
 
             <!--End of body content-->
@@ -368,6 +444,7 @@
             <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
             <li><a href="research.html"><i class="icon-question-sign"></i> Research</a></li>
             <li><a href="pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="fun-stuff.html"><i class="icon-gift"></i> Fun Stuff</a></li>
             <li><a href="about-me.html"><i class="icon-user"></i> About Me</a></li>
             <li class="divider"> </li>
             <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>

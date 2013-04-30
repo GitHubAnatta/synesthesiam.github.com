@@ -325,3 +325,75 @@
 	r1_xy_1 = (0, 0)
 	r1_xy_2 = (10, 10)
 	r1_area = area(r1_xy_1, r1_xy
+
+## scope
+
+### diffname
+
+    :::python
+    def add_1(num):
+        num = num + 1
+
+    def twice(num):
+        num = num * 2
+
+    added = 4
+    add_1(added)
+    twice(added)
+    add_1(added)
+    twice(added)
+    print added
+
+### samename
+
+    :::python
+    def add_1(added):
+        added = added + 1
+
+    def twice(added):
+        added = added * 2
+
+    added = 4
+    add_1(added)
+    twice(added)
+    add_1(added)
+    twice(added)
+    print added
+
+## whitespace
+
+### linedup
+
+    :::python
+    intercept = 1
+    slope     = 5
+
+    x_base  = 0
+    x_other = x_base + 1
+    x_end   = x_base + x_other + 1
+
+    y_base  = slope * x_base  + intercept
+    y_other = slope * x_other + intercept
+    y_end   = slope * x_end   + intercept
+
+    print x_base,  y_base
+    print x_other, y_other
+    print x_end,   y_end
+
+### zigzag
+
+    :::python
+    intercept = 1
+    slope = 5
+
+    x_base = 0
+    x_other = x_base + 1
+    x_end = x_base + x_other + 1
+
+    y_base = slope * x_base + intercept
+    y_other = slope * x_other + intercept
+    y_end = slope * x_end + intercept
+
+    print x_base, y_base
+    print x_other, y_other
+    print x_end, y_end

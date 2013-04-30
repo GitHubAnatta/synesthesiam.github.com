@@ -26,32 +26,34 @@
     <h1>What Makes Code Hard to Understand?</h1>
 
     <small>
-        Posted: 2013-04-18
+        Posted: 2013-04-26
         
+          |  More posts about
+            <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
+            <a class="tag" href="../categories/research.html"><span class="badge badge-info">research</span></a>
+            <a class="tag" href="../categories/python.html"><span class="badge badge-info">python</span></a>
 
     </small>
-    <br><br><div><p>[<a href="http://arxiv.org/abs/1304.5257">arXiv paper</a>]</p>
-<p>What factors impact the comprehensibility of code? Psychology of programming
-research suggests that expectation-congruent programs should take less time to
-understand and be less prone to errors.  In this blog post, I'll describe an
-experiment I did with my advisors <a href="http://osl.iu.edu/~lums/">Andrew Lumsdaine</a>
-(Computer Science) and <a href="http://cognitrn.psych.indiana.edu/rgoldsto/">Rob
+    <br><br><div><p>[<a href="http://arxiv.org/abs/1304.5257">arXiv paper</a>] [<a href="https://github.com/synesthesiam/eyecode-tools">eyeCode data set</a>]</p>
+<p>What factors impact the comprehensibility of code? In this blog post, I'll
+describe an experiment I did with my advisors <a href="http://osl.iu.edu/~lums/">Andrew
+Lumsdaine</a> (Computer Science) and <a href="http://cognitrn.psych.indiana.edu/rgoldsto/">Rob
 Goldstone</a> (Cognitive Science) at
 Indiana University.</p>
 <p>We asked 162 programmers to predict the output of <a href="../pages/eyecode-programs.html">10 small Python
 programs</a>.  Each program had 2 or 3 different
 versions, and we used subtle differences between program versions to
 demonstrate that seemingly insignificant notational changes can have big
-effects on correctness and response times. Our results show that experience
-increases performance in most cases, but may hurt performance significantly
-when underlying assumptions about related code statements are violated.</p>
+effects on correctness and response times. I'll go over some of the results
+here, hopefully to whet your appetite for <a href="http://arxiv.org/abs/1304.5257">the
+paper</a>.</p>
 <!-- TEASER_END -->
 
 <h2 id="the-programmers">The Programmers</h2>
 <p>We had 162 programmers (129 males, 30 females, 3 unreported) participate from
 Amazon's Mechanical Turk (130 people), the local Bloomington, IN area (29
 people), and via e-mail solicitations (3 people). All participants needed to
-have some programming experiments, and the Mechanical Turkers were required to
+have some programming experience, and the Mechanical Turkers were required to
 pass a simple Python quiz before taking the experiment.</p>
 <p>Here's a breakdown of the participant demographics:
 <img alt="Demographics" src="../assets/img/plot-demographics.png"></p>
@@ -61,12 +63,12 @@ post</a> for a video). The folks from
 Mechanical Turk got $0.75, which is a lot more than the penny I see most people
 offering for surveys!</p>
 <h2 id="the-experiment">The Experiment</h2>
-<p>The experiment consisted of a pre-test survey, ten trials (one program each),
+<p>The experiment consisted of a pre-test survey, 10 trials (one program each),
 and a post-test survey. The pre-test survey gathered information about the
 participant's age, gender, education, and experience. Participants were then
-asked to predict the printed output of <a href="../pages/eyecode-programs.html">ten short Python
+asked to predict the printed output of <a href="../pages/eyecode-programs.html">10 short Python
 programs</a>, one version randomly chosen from
-each of ten program types.</p>
+each of our program base types.</p>
 <p>Here's a shot of the main screen that participants used to drill down into each
 trial:</p>
 <p><img alt="Main Screen" src="../assets/img/eyecode_home.png"></p>
@@ -75,14 +77,14 @@ box where the participant could write what they thought the program would
 output.</p>
 <p><img alt="Main Screen" src="../assets/img/eyecode_trial.png"></p>
 <p>The presentation order and names of the programs were randomized, and all
-answers were final (i.e., no going back).  Although every program produced
-error-free output, participants were not informed of this fact beforehand. The
+answers were final (i.e., no going back).  Although every program actually ran
+without errors, participants were not informed of this fact beforehand. The
 post-test survey gauged a participant's confidence in their answers and the
 perceived difficulty of the task.</p>
 <h2 id="the-data">The Data</h2>
 <p>We collected a total of 1,602 trials from the 162 participants starting
 November 20, 2012 and ending January 19, 2013. Trials were graded
-semi-automatically using a custom grading script (<a href="%5Bhttps://github.com/synesthesiam/eyecode-tools">available
+semi-automatically using a custom grading script (<a href="https://github.com/synesthesiam/eyecode-tools">available
 here</a>). Grades were assigned like this:</p>
 <ul><li><strong>Perfect (10 points)</strong> - response exactly matched the program's output
   (about 63% of trials)</li>
@@ -91,38 +93,200 @@ here</a>). Grades were assigned like this:</p>
 <li><strong>Common error (2-4 points)</strong> - response was incorrect, but given by at least
   3 other participants</li>
 </ul><p>All other responses were graded manually (about 12% of the trials). Any trial
-that was restarted was discarde; this only happened if the participant reloaded
-the web page or fiddled with the URL to try and change their answer.</p>
+that was restarted was discarded. This only happened, though, if the
+participant reloaded the web page or fiddled with the URL to try and change
+their answer.</p>
 <p>We had a total of <a href="../pages/eyecode-programs.html">25 Python programs in 10 different
 categories</a>. These programs were designed to be
 understandable by a wide audience, and therefore did not touch on Python
 features outside of a first or second introductory programming course. This
-worked out great our eye-tracking experiment, because we got a lot of examples
-of programmers successfully comprehending a program and predicting its output.
-The programs were probably a bit too easy for the Mechanical Turkers, though, as
-evidenced by the large number of perfect (62%). If we consider correct grades
-as well, that figure rises to 73%, making it tough to distinguish experienced
-from inexperienced programmers.</p>
+worked out great for our eye-tracking experiment because we got a lot of
+examples of programmers successfully comprehending a program and predicting its
+output.  The programs were probably a bit too easy, though, as evidenced by the
+large number of perfect trials (62%). If we add in correct grades (minor
+formatting errors), that figure rises to 73%. This made it tough to distinguish
+experienced programmers from inexperienced programmers using grades alone.</p>
 <p><!--The programs ranged in size from 3 to 24 lines of code (LOC).  Additional-->
 <!--metrics, like <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">cyclomatic--&gt;
 &lt;!--complexity</a> and <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures">Halstead--&gt;
 &lt;!--volume</a>, were-->
 <!--computed with <a href="http://sourceforge.net/projects/pymetrics/">PyMetrics</a>.--></p>
 <h2 id="results">Results</h2>
-<p>Because this is a blog post, I'll only be discussing a few results. I'll also be
-sticking with graphical comparsions, and except for the use of correlation
-coefficients, try to avoid talking about stats. If you want all of that stuff,
-<a href="http://arxiv.org/abs/1304.5257">the paper</a> is chock full of it!</p>
-<h3 id="do-more-experienced-programmers-do-better">Do more experienced programmers do better?</h3>
-<p><img alt="Grades versus Python experience" src="../assets/img/grade_vs_exp-all-python_years.png"></p></div>
+<p>Because this is a blog post, I'll only be discussing a handful of the results.
+I'll also stick with graphical comparsions, and try to avoid talking about
+stats. If you want all of that stuff, <a href="http://arxiv.org/abs/1304.5257">the
+paper</a> is chock full of it!</p>
+<h3 id="whitespace-and-loops">Whitespace and Loops</h3>
+<p>The <a href="../pages/eyecode-programs.html#counting">counting</a> program had two versions
+that differed only their whitespace. Here's the "nospace" version:</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">"The count is"</span><span class="p">,</span> <span class="n">i</span>
+    <span class="k">print</span> <span class="s">"Done counting"</span>
+</pre></div>
+
+
+<p>When run, this program produces the following output:</p>
+<div class="code"><pre>The count is 1
+Done counting
+The count is 2
+Done counting
+The count is 3
+Done counting
+The count is 4
+Done counting
+</pre></div>
+
+
+<p>To most people, this is clearly a bug -- "Done counting" should probably only
+be printed once at the end. Nevertheless, this is what the program says to do.</p>
+<p>Now, let's take a look at the "twospaces" version:</p>
+<div class="code"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">"The count is"</span><span class="p">,</span> <span class="n">i</span>
+
+    <span class="k">print</span> <span class="s">"Done counting"</span>
+</pre></div>
+
+
+<p>This version had two blank lines (vertical spaces) between the print
+statements.  The meaning of the program doesn't change in Python, but we saw a
+big change in the distribution of grades.</p>
+<p><img alt="counting grade distribution" src="../assets/img/grade_pie-counting.png"></p>
+<p>In the "nospace" version, 75% of the participants got the answer correct
+character-for-character (perfect). If we include minor formatting mistakes
+(correct), that figure rises another 8%. Contrast this with the "twospaces"
+version, where more than twice as many people guessed the following (wrong)
+output:</p>
+<div class="code"><pre>The count is 1
+The count is 2
+The count is 3
+The count is 4
+Done counting
+</pre></div>
+
+
+<p>We were even more surprised to find that years of Python experience didn't
+see to make a difference in the odds of making this mistake. Perhaps Python
+could do with a required <code>end</code> token?</p>
+<h3 id="expect-the-unexpected">Expect the Unexpected</h3>
+<p>What do you suppose this program outputs?</p>
+<div class="code"><pre><span class="k">def</span> <span class="nf">add_1</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">twice</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">added</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">add_1</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="n">twice</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">added</span>
+</pre></div>
+
+
+<p>If you're like half of the programmers in our experiment, you answered <code>22</code>.
+Take another look, and you'll realize that <code>add_1()</code> and <code>twice()</code> don't
+actually return anything. The main body also doesn't reassign anything to the
+<code>added</code> variable. This means that <code>added</code> retains its initial value, making the
+final result just <code>4</code>.</p>
+<p>Why did 50% of our participants get this program wrong? There is a strong
+expectation amongst programmers that you <em>don't include code that won't be
+used</em>. Elliot Soloway identified this and other maxims (or <a href="http://www.ics.uci.edu/~redmiles/inf233-FQ07/oldpapers/SollowayEhrlich.pdf">rules of
+discourse</a>)
+in 1984. Like conversational norms, these unwritten rules can have a powerful
+influence on interpretation.</p>
+<p>Many modern editors will warn about unused local variables, but this seems to be
+something more. The <code>add_1()</code> and <code>twice()</code> functions don't really <em>do</em>
+anything, even though they assign a new value to <code>num</code>. It may be useful to
+quantify how programmers differentiate between functions that do things and
+functions that don't in order to provide better warnings.</p>
+<h3 id="reading-between-the-lines">Reading <code>between</code> the Lines</h3>
+<p>The longest program in our study was
+<a href="../pages/eyecode-programs.html#between">between</a>. It filtered down two lists,
+printed the results, and then printed the intersection of the (original) two
+lists. We had two versions, "functions" and "inline", where the filtering and
+intersection operations were either contained in separate functions or inlined
+in the main body.</p>
+<p>We didn't see a big difference in grades or response times, though about 10%
+more participants gave a correct answer on the "inline" version. There was,
+however, an interesting common error that more experienced programmers tended
+to make.  Here's the code for the "inline" version:</p>
+<div class="code"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">x_between</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">x_i</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x_i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="n">x_between</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">x_between</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_between</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">y_i</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="n">y_i</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_i</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">):</span>
+        <span class="n">y_between</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">y_between</span>
+
+<span class="n">xy_common</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">xy_common</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">xy_common</span>
+</pre></div>
+
+
+<p>The correct output is this:</p>
+<div class="code"><pre>[8, 7, 9]
+[1, 0, 8, 1]
+[8, 9, 0]
+</pre></div>
+
+
+<p>but about 22% of our participants gave this answer instead:</p>
+<div class="code"><pre>[8, 7, 9]
+[1, 0, 8, 1]
+[8]
+</pre></div>
+
+
+<p>This would be the right answer if the intersection (common) operation was
+performed on the filtered lists instead of the original lists. Curiously, the
+average experience level in the mistaken 22% was a good bit higher than in the
+overall group.  We hypothesized that this may represent another "rule of
+discourse" -- <em>later computations should follow from earlier ones</em>.</p>
+<p>More experienced programmers may be expecting the intersection, which comes
+later than the filtering, to make use of the filtered lists. We think that
+moving the intersection before the filtering operations would eliminate the
+error, but we're interested to hear what changes others think would help
+programmers avoid this mistake.</p>
+<h2 id="want-more">Want More?</h2>
+<p>If you'd like to see all of the results, make sure to check out the full paper.
+For a more comprehensive review of the psychology of programming, I'd recommend the book <a href="http://www.amazon.com/Software-Design-Cognitive-Francoise-Detienne/dp/1852332530/ref=sr_1_1?ie=UTF8&amp;qid=1355896718&amp;sr=8-1&amp;keywords=software+design+cognitive+aspects">Software
+Design: Cognitive
+Aspects</a>.
+It has a great overview of the field and its findings up to around 2000.</p>
+<p>Some more recent scientific work includes Raymond Buse's <a href="http://www.arrestedcomputing.com/readability/">code readability
+study</a>, Christopher Douce's
+<a href="http://oro.open.ac.uk/24944/">"Stores" model of code cognition</a>, and Roman
+Bednarik's <a href="http://cs.uef.fi/~rbednari/">eye-tracking experiments</a>. As was
+mentioned in the <a href="https://news.ycombinator.com/item?id=5606534">Hacker News
+thread</a> related to the paper,
+there's even an entire conference dedicated to studying <a href="http://www.program-comprehension.org/">program
+comprehension</a>! My work is inspired by
+these and other great scientists.</p>
+<h2 id="data">Data</h2>
+<p>You're welcome to take a look at the data. It's <a href="https://github.com/synesthesiam/eyecode-tools">available on
+Github</a> in XML format along with
+some of my plotting and analysis scripts. If you end up using the data for your
+own research, please <a href="http://arxiv.org/abs/1304.5257">cite us</a>!</p>
+<p><img alt="Tim the Terminal" src="../assets/img/term_happy.png"></p></div>
     
     <ul class="pager"><li class="previous">
-            <a href="python-recipes.html">← Previous post</a>
+            <a href="an-introduction-to-pandas.html">← Previous post</a>
         </li>
-        <li class="next">
-            <a href="an-introduction-to-pandas.html">Next post →</a>
-        </li>
-    </ul></div>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">var disqus_shortname="synesthesiam";var disqus_url="http://synesthesiam.com/posts/what-makes-code-hard-to-understand.html";(function(){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src="http://"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)})();        </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
 
             <!--End of body content-->
             <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
@@ -132,6 +296,7 @@ coefficients, try to avoid talking about stats. If you want all of that stuff,
             <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
             <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
             <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/fun-stuff.html"><i class="icon-gift"></i> Fun Stuff</a></li>
             <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
             <li class="divider"> </li>
             <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>

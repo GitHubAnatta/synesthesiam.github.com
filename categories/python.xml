@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>synesthesiam (python)</title><link>http://synesthesiam.com</link><description></description><lastBuildDate>Thu, 25 Apr 2013 13:41:58 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>An Introduction to Pandas</title><link>http://synesthesiam.com/posts/an-introduction-to-pandas.html</link><description>&lt;p&gt;When dealing with numeric matrices and vectors in Python, &lt;a href="http://www.numpy.org/"&gt;NumPy&lt;/a&gt; makes life a lot easier.
+<rss version="2.0"><channel><title>synesthesiam (python)</title><link>http://synesthesiam.com</link><description></description><lastBuildDate>Tue, 30 Apr 2013 11:37:19 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>What Makes Code Hard to Understand?</title><link>http://synesthesiam.com/posts/what-makes-code-hard-to-understand.html</link><description>&lt;p&gt;[&lt;a href="http://arxiv.org/abs/1304.5257"&gt;arXiv paper&lt;/a&gt;] [&lt;a href="https://github.com/synesthesiam/eyecode-tools"&gt;eyeCode data set&lt;/a&gt;]&lt;/p&gt;
+&lt;p&gt;What factors impact the comprehensibility of code? In this blog post, I'll
+describe an experiment I did with my advisors &lt;a href="http://osl.iu.edu/~lums/"&gt;Andrew
+Lumsdaine&lt;/a&gt; (Computer Science) and &lt;a href="http://cognitrn.psych.indiana.edu/rgoldsto/"&gt;Rob
+Goldstone&lt;/a&gt; (Cognitive Science) at
+Indiana University.&lt;/p&gt;
+&lt;p&gt;We asked 162 programmers to predict the output of &lt;a href="/pages/eyecode-programs.html"&gt;10 small Python
+programs&lt;/a&gt;.  Each program had 2 or 3 different
+versions, and we used subtle differences between program versions to
+demonstrate that seemingly insignificant notational changes can have big
+effects on correctness and response times. I'll go over some of the results
+here, hopefully to whet your appetite for &lt;a href="http://arxiv.org/abs/1304.5257"&gt;the
+paper&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="/posts/what-makes-code-hard-to-understand.html"&gt;Read more...&lt;/a&gt;&lt;/p&gt;</description><guid>http://synesthesiam.com/posts/what-makes-code-hard-to-understand.html</guid><pubDate>Fri, 26 Apr 2013 11:10:01 GMT</pubDate></item><item><title>An Introduction to Pandas</title><link>http://synesthesiam.com/posts/an-introduction-to-pandas.html</link><description>&lt;p&gt;When dealing with numeric matrices and vectors in Python, &lt;a href="http://www.numpy.org/"&gt;NumPy&lt;/a&gt; makes life a lot easier.
 For more complex data, however, it leaves a lot to be desired.
 If you're used to working with &lt;a href="http://www.r-tutor.com/r-introduction/data-frame"&gt;data frames in R&lt;/a&gt;, doing data analysis directly with NumPy feels like a step back.&lt;/p&gt;
 &lt;p&gt;Fortunately, some nice folks have written the &lt;a href="http://pandas.pydata.org/"&gt;Python Data Analysis Library&lt;/a&gt; (a.k.a. pandas).

@@ -55,7 +55,7 @@
 <p>Our goal will be to read this data into Python and plot a graph with the day of the month on the x-axis and the time worked out on the y-axis. Let's get started.</p>
 <!-- TEASER_END -->
 
-<h2>1. Reading</h2>
+<h2 id="1-reading">1. Reading</h2>
 <p>To begin, let's read in the data file with <a href="http://docs.python.org/library/csv.html">Python's csv module</a>. The code is fairly straightforward:</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">csv</span>
 
@@ -155,7 +155,7 @@
 
 
 <p>Hooray! Our blank lines and comments are gone. Before moving on to parsing the data (converting it from text to dates, integers, etc.), let's take a moment to think about how Python is actually using our <tt>filter_lines</tt> and <tt>keep_line</tt> functions. For that, we need to understand the <em>call stack</em></p>
-<h2>2. The Call Stack</h2>
+<h2 id="2-the-call-stack">2. The Call Stack</h2>
 <p>Python tracks which functions are currently being executed with a data structure named the call stack. When Python encounters a function call, like <tt>lines = filter_lines(reader)</tt>, it "pushes" information about where to come back to and then jumps to the function's code. When a <tt>return</tt> statement is found (or when the function ends), Python "pops" information off call stack to remember where it was.</p>
 <p>This can be difficult to visualize. Below is a diagram of our program before and after the call to <tt>filter_lines</tt>.</p>
 <p><img alt="Call Stack" src="../assets/img/call_stack-5.png"></p>
@@ -163,7 +163,7 @@
 <p>It's important to remember that the <tt>reader</tt> in the global function and the <tt>reader</tt> in <tt>filter_lines</tt> are two different variables. However, they point to the same file in memory, so reading from the file inside of <tt>filter_lines</tt> changes the file position of <tt>reader</tt> in the global function.</p>
 <p>Python copies things by reference instead of by value, which is very fast (it only needs to point the new variable at the right thing in memory). It can lead to confusion, however, if you don't expect a function to make changes to a parameter (e.g., trying to read data from <tt>reader</tt> after calling <tt>filter_lines</tt> produces nothing since we're at the end of the file). If you really need to, making copies is easy. A list named <tt>my_list</tt>, for example, can be copied simply by slicing the whole thing <tt>my_list[:]</tt>.</p>
 <p>With a picture of the call stack in our heads, let's move on to parsing our workout data.</p>
-<h2>3. Parsing</h2>
+<h2 id="3-parsing">3. Parsing</h2>
 <p>Our workout data is stored as text. In order to process and plot it, we need to convert each field to its appropriate type (e.g., a date, an integer, etc.). Converting from text to integers or floating point numbers is easy; we can just call the <tt>int()</tt> or <tt>float()</tt> function. Our first field is a date, however, which requires a bit more work.</p>
 <p>Parsing dates can get hairy very quickly. Luckily, the hard work has already been done for us! Python includes module called <tt>datetime</tt> that handles parsing for dates and times (go figure ;)).</p>
 <h4>3.1 The <tt>datetime</tt> module</h4>
@@ -311,7 +311,7 @@ Times: [25, 55, 20, 42, 10, 60, 60, 60, 60]
 
 
 <p>We're now ready to start plotting.</p>
-<h2>4. Plotting</h2>
+<h2 id="4-plotting">4. Plotting</h2>
 <p>There are <a href="http://wiki.python.org/moin/NumericAndScientific/Plotting">many plotting libraries</a> available for Python. For this tutorial, we'll stick with one of the most popular libraries based on MATLAB: <a href="http://matplotlib.sourceforge.net/">matplotlib</a></p>
 <h4>4.1 Installing <tt>matplotlib</tt></h4>
 
@@ -508,7 +508,11 @@ If no errors are printed, then you should be set.
     <ul class="pager"><li class="next">
             <a href="matplotlib-and-numpy-double-trouble.html">Next post →</a>
         </li>
-    </ul></div>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">var disqus_shortname="synesthesiam";var disqus_url="http://synesthesiam.com/posts/an-exercise-with-functions-and-plotting.html";(function(){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src="http://"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)})();        </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
 
             <!--End of body content-->
             <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
@@ -518,6 +522,7 @@ If no errors are printed, then you should be set.
             <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
             <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
             <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/fun-stuff.html"><i class="icon-gift"></i> Fun Stuff</a></li>
             <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
             <li class="divider"> </li>
             <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>

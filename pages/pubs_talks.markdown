@@ -9,8 +9,7 @@
 
 Papers &amp; Publications
 -------------------------
-<table id="publications">
-
+<table class="table-list">
 <tr>
 <td>
     <b>What Makes Code Hard to Understand?</b><br />
@@ -55,15 +54,13 @@ Papers &amp; Publications
     <a href="../assets/morton2007progress.bib" class="btn">Bibtex</a>
 </td>
 </tr>
-
-</thead>
 </table>
 
 <hr />
 
 Talks
 -----
-<table id="publications">
+<table class="table-list">
 <tr>
 <td>
     <b>What Makes Code Hard to Understand?</b><br />
@@ -155,6 +152,143 @@ Talks
     <span class="muted">(PDF 458KB)</span>
 </td>
 </tr>
+</table>
 
-</thead>
+<hr />
+
+Courses
+-------
+<table class="table-list">
+<tr>
+<td>
+    <b>COGS-Q 520 Mathematics and Logic for Cognitive Science</b><br />
+    Larry Moss<br />
+    <em>Fall 2012</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 540 Philosophical Foundations of Cognitive Science</b><br />
+    Colin Allen<br />
+    <em>Fall 2011</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 551 The Brain and Cognition</b><br />
+    Sharlene Newman<br />
+    <em>Fall 2011</em><br />
+    <a href="../assets/mihansen_q551.pdf" class="btn btn-primary">Paper</a>
+    <span class="muted">(PDF 212KB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 689 Computational Photography</b><br />
+    Andrew Lumsdaine<br />
+    <em>Fall 2011</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 550 Models in Cognitive Science</b><br />
+    Michael Jones<br />
+    <em>Spring 2011</em><br />
+    <a href="../assets/mihansen_b689.pdf" class="btn btn-primary">Paper</a>
+    <span class="muted">(PDF 3.5MB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 610 Networks of the Brain</b><br />
+    Olaf Sporns<br />
+    <em>Spring 2011</em><br />
+    <a href="../assets/mihansen_q610.pdf" class="btn btn-primary">Paper</a>
+    <span class="muted">(PDF 629KB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 649 Trusted Computing</b><br />
+    Raquel Hill<br />
+    <em>Spring 2011</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 629 Reversible and Quantum Computing</b><br />
+    Amr Sabry<br />
+    <em>Spring 2011</em><br />
+    <a href="../assets/mihansen_quantum.pdf" class="btn btn-primary">Slides</a>
+    <span class="muted">(PDF 636KB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 700 Insight and Invention in Geometry</b><br />
+    Douglas Hofstadter<br />
+    <em>Fall 2010</em><br />
+    <a href="../assets/mihansen_q700.pdf" class="btn btn-primary">Paper</a>
+    <span class="muted">(PDF 750KB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 629 Integrating Static and Dynamic Typing</b><br />
+    Amal Ahmed<br />
+    <em>Fall 2010</em><br />
+    <a href="../assets/mihansen_b629.zip" class="btn btn-primary">Slides</a>
+    <span class="muted">(ZIP 6.5MB)</span>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 651 Natural Language Processing</b><br />
+    Michael Gasser<br />
+    <em>Fall 2010</em><br />
+    <a href="http://code.google.com/p/nltk/source/detail?r=8722" class="btn btn-primary">Project</a>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 501 Theory of Computation</b><br />
+    Daniel Leivant<br />
+    <em>Spring 2010</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>COGS-Q 580 Introduction to Dynamical Systems in Cognitive Science</b><br />
+    James Townsend<br />
+    <em>Spring 2010</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>PSY-P 534 Introduction to Bayesian Data Analysis II</b><br />
+    John K. Kruschke<br />
+    <em>Spring 2010</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-B 521 Principles of Programming Languages</b><br />
+    Daniel P. Friedman<br />
+    <em>Fall 2009</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>CSCI-P 536 Advanced Operating Systems</b><br />
+    Andrew Lumsdaine<br />
+    <em>Fall 2009</em>
+</td>
+</tr>
+<tr>
+<td>
+    <b>PSY-P 533 Introduction to Bayesian Data Analysis I</b><br />
+    John K. Kruschke<br />
+    <em>Fall 2009</em>
+</td>
+</tr>
 </table>

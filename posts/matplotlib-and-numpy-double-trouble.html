@@ -38,14 +38,14 @@
 <p>I've put weather data for Bloomington, IN in a file called <tt>weather.csv</tt>. Each row is one day, and there are columns for min/mean/max temperature, dew point, wind speed, etc. We'll be plotting temperature and weather event data (e.g., rain, snow).</p>
 <!-- TEASER_END -->
 
-<h2>0. Installing matplotlib</h2>
+<h2 id="0-installing-matplotlib">0. Installing matplotlib</h2>
 <p>I covered installing matplotlib in <a href="http://synesthesiam.com/?p=145">a previous tutorial</a>. The matplotlib site also has <a href="http://matplotlib.sourceforge.net/users/installing.html">installation instructions</a>. I'll assume for the rest of the tutorial that you have matplotlib installed and working. If you can type this code at a Python shell:</p>
 <div class="code"><pre><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
 </pre></div>
 
 
 <p>and not receive any errors, then you're good to go.</p>
-<h2>1. Numpy Crash Course</h2>
+<h2 id="1-numpy-crash-course">1. Numpy Crash Course</h2>
 <p>The <a href="http://scipy.org/Getting_Started">numpy module</a> is how you do matrix-y stuff in Python. I'll give a quick example of why we'll need it. Imagine you were to type the following code into a Python shell:</p>
 <div class="code"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">5</span>
@@ -78,7 +78,7 @@
 
 
 <p>This prints <tt>array([ 5, 10, 15, 20])</tt> which is what we would expect. The <tt>array(...)</tt> lets you know that <tt>x</tt> is a <tt>numpy</tt> array. Onward!</p>
-<h2>2. Reading the Data</h2>
+<h2 id="2-reading-the-data">2. Reading the Data</h2>
 <p>As with many programming problems, our first step is to read the data into memory. I've started a script called <tt>plot_data.py</tt> with a few <tt>import</tt> statements and some utility functions. I'll explain these functions in detail as we go forward.</p>
 <div class="code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">pyplot</span>
@@ -200,7 +200,7 @@ May 14: 69.0
 
 
 <p>Everything looks good, so let's get started plotting.</p>
-<h2>3. Temperature Plot</h2>
+<h2 id="3-temperature-plot">3. Temperature Plot</h2>
 <p>We're going to start with a simple line plot that has the day of the year on the x-axis and the mean temperature for that day on the y-axis. Our plotting function, called <tt>temp_plot</tt>, will take in dates and times, and give us back a <tt>matplotlib</tt> figure object. Here's the code:</p>
 <div class="code"><pre><span class="k">def</span> <span class="nf">temp_plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">mean_temps</span><span class="p">):</span>
 
@@ -240,7 +240,7 @@ May 14: 69.0
 <p>Running $ python plot_data.py should create a "plots" folder and put a file inside called "day_vs_temp.png" that looks like this:</p>
 <p><img alt="Day vs. Temperature" src="../assets/img/day_vs_temp-5.png"></p>
 <p>Not bad! Let's add a trend line to the plot based on a simple linear model of the data.</p>
-<h2>3.1 Adding a trend line</h2>
+<h2 id="31-adding-a-trend-line">3.1 Adding a trend line</h2>
 <p>By using <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html">numpy's polyfit function</a>, adding a trend line is a snap. This function takes our x and y values (<tt>days</tt> and <tt>mean_temps</tt>), and gives us back a slope and intercept (the final parameter is the degree of the fitted polynomial -- we pass 1 for a linear fit).
 </p><pre class="brush: python; gutter: false; first-line: 1;">slope, intercept = np.polyfit(days, mean_temps, 1)</pre>
 Using the slope and intercept, we can plot a trend line by computing "ideal" temperatures for each day according to the old <tt>y = mx + b</tt> formula. With our variables below, this will be <tt>ideal_temps = (slope * days) + intercept</tt>. Note that I've changed the <tt>days = ...</tt> line to <tt>days = np.array(...)</tt> so that we can do mathematical operations directly on the array.
@@ -274,7 +274,7 @@ Using the slope and intercept, we can plot a trend line by computing "ideal" tem
 <p>With the changes above, here's the new plot:</p>
 <p><img alt="Day vs. Temperature" src="../assets/img/day_vs_temp-6.png"></p>
 <p>Notice that the string formatting (<tt>{0:.3f}</tt>) has rounded the R-squared value and slope label for us to three decimal places.</p>
-<h2>3.2 Adding "error" bars</h2>
+<h2 id="32-adding-error-bars">3.2 Adding "error" bars</h2>
 <p>Since we also have the min and max temperatures in our data, let's add "error" bars to our plot to show the temperature range on each day. We'll modify <tt>temp_plot</tt> to take in two additional parameters (<tt>min_temps</tt> and <tt>max_temps</tt>), and plot the temperature range if they both have values (i.e., are not <tt>None</tt>).</p>
 <p>Adding error bars requires us to use the <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.errorbar">pyplot.errorbar</a> function instead of <tt>pyplot.plot</tt>. It takes additional parameters (<tt>xerr</tt> and <tt>yerr</tt>) for the x and y errors. We will use <tt>yerr</tt>, and pass in an array with two rows: one for error above each data point, and one for the error below. This array is easily computed by subtracting the max and min temperatures from the mean, and then stacking the two arrays together row-wise with <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html">numpy.vstack</a>.</p>
 <div class="code"><pre><span class="k">def</span> <span class="nf">temp_plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">mean_temps</span><span class="p">,</span> <span class="n">min_temps</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">max_temps</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
@@ -336,7 +336,7 @@ Using the slope and intercept, we can plot a trend line by computing "ideal" tem
 <p><img alt="Day vs. Temperature" src="../assets/img/day_vs_temp-all-7.png"></p>
 <p>If you need to compute standard error for your <tt>errorbar</tt> plot, you can use <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.sem.html#scipy.stats.sem">scipy.stats.sem</a> from the <a href="http://www.scipy.org/">scipy module</a>.</p>
 <p>For our next plot, we'll do a multi-part histogram of the weather events for each month.</p>
-<h2>4. Event Histogram</h2>
+<h2 id="4-event-histogram">4. Event Histogram</h2>
 <p>Histograms in <tt>matplotlib</tt> are generated using the <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.hist">pyplot.hist</a> function. This function takes an array of data, which can itself contain arrays (for a multi-part histogram). We want to count events per month, so we'll need to create an array for each type of event. Inside these arrays will be observations like <tt>[1, 1, 2, 3, 3]</tt> for "January", "January", "February", "March", "March". Here's a diagram to help out:</p>
 <p><img alt="Event Diagram" src="../assets/img/events.png"></p>
 <p>When <tt>pyplot.hist</tt> receives our data, it will attempt to "bin" the month observations automatically. By default, it will break observations into 10 bins. We want a bin for each month instead, and we want the bins aligned properly to the month numbers (1 = January, 2 = February, etc.). The <tt>bins</tt> parameter to <tt>pyplot.hist</tt> takes either a number (representing the desired number of bins) or a sequence (representing the desired bin <em>edges</em>). In the code below, we pass <tt>range(1, 5 + 2)</tt> to ensure that our bins start at 1 (for January) and go <em>through</em> 5 (for May).</p>
@@ -466,7 +466,11 @@ Using the slope and intercept, we can plot a trend line by computing "ideal" tem
         <li class="next">
             <a href="modeling-how-programmers-read-code.html">Next post →</a>
         </li>
-    </ul></div>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">var disqus_shortname="synesthesiam";var disqus_url="http://synesthesiam.com/posts/matplotlib-and-numpy-double-trouble.html";(function(){var a=document.createElement("script");a.type="text/javascript";a.async=true;a.src="http://"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)})();        </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
 
             <!--End of body content-->
             <hr class="light"><small>Contents © 2013 <a href="../pages/about-me.html">Michael Hansen</a> - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
@@ -476,6 +480,7 @@ Using the slope and intercept, we can plot a trend line by computing "ideal" tem
             <ul class="nav nav-list"><li><a href="../index.html"><i class="icon-home"></i> Home</a></li>
             <li><a href="../pages/research.html"><i class="icon-question-sign"></i> Research</a></li>
             <li><a href="../pages/pubs_talks.html"><i class="icon-file"></i> Pubs/Talks</a></li>
+            <li><a href="../pages/fun-stuff.html"><i class="icon-gift"></i> Fun Stuff</a></li>
             <li><a href="../pages/about-me.html"><i class="icon-user"></i> About Me</a></li>
             <li class="divider"> </li>
             <li><a href="../categories/index.html"><i class="icon-tag"></i> Tags</a></li>
